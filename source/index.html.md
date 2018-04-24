@@ -2,10 +2,6 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -17,13 +13,42 @@ includes:
 search: true
 ---
 
-# Introduction
+# Getting Started
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Intro text can go here...
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+## Add LocalizeProvider
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+```jsx
+import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { LocalizeProvider } from 'react-localize-redux';
+import Main from './Main';
+
+const App = props => (
+  <LocalizeProvider>
+    <Router> 
+      <Route path="/" component={Main} />
+    </Router>
+  </LocalizeProvider>
+);
+
+render(<App />, document.getElementById('root'));
+```
+
+It is recommended to add this at the top level of your application's component tree. This ensure's all components in your app can
+consume localization data.
+
+TODO: ... handling React
+
+
+## Add supported langauges
+
+
+
+
+
 
 # Authentication
 
