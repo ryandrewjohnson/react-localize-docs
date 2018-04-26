@@ -17,6 +17,10 @@ search: true
 
 Intro text can go here...
 
+
+
+
+
 ## Add LocalizeProvider
 
 ```jsx
@@ -37,13 +41,292 @@ const App = props => (
 render(<App />, document.getElementById('root'));
 ```
 
-It is recommended to add this at the top level of your application's component tree. This ensure's all components in your app can
-consume localization data.
-
-TODO: ... handling React
+By wrapping your application with `<LocalizeProvider />` all component's in the heirarchy below
+will have the ability to work with localize.
 
 
-## Add supported langauges
+
+
+
+## Initialize localize
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+import globalTranslations from './translations/global.json';
+
+class Main extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.props.initialize({
+      languages: [
+        { name: 'English', code: 'en' }, 
+        { name: 'French', code: 'fr' }
+      ],
+      translation: globalTranslations
+    });
+  }
+
+  render() {
+    // render Main layout component
+  }
+}
+
+export default withLocalize(Main);
+```
+
+Initialize localize content goes here...
+
+
+
+
+
+## Add translation data
+
+> To add multi language translations, use `addTranslation`:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+import movieTranslations from './translations/movies.json';
+
+class Movies extends React.Component {
+  
+  constructor(props) {
+    super(props);    
+
+    this.props.addTranslation(movieTranslations);
+  }
+
+  render() {
+    // render movie component
+  } 
+}
+
+export default withLocalize(Movies);
+```
+
+> To add single language translations, use `addTranslationForLanguage`:
+
+```jsx
+import frenchMovieTranslations from './translations/fr.movies.json';
+
+this.props.addTranslationForLanguage(frenchMovieTranslations, 'fr');
+```
+
+Add translation data content goes here...
+
+
+
+
+
+## Add translations to components
+
+> Assuming the following translations have been added:
+
+```json
+{
+  "movie": {
+    "title": ["Jurassic Park", "Le Parc jurassique"]
+  }
+}
+```
+
+Here is the intro text beside the JSON.
+
+
+> With default language:
+
+```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
+const Movies = props => (
+  <h1><Translate id="movie.title">Jurassic Park</Translate></h1>
+);
+```
+
+### With children
+
+Here is the text talking about Translate with children.
+
+
+> With default language:
+
+```jsx
+const Movies = props => (
+  <h1><Translate id="movie.title" /></h1>
+);
+```
+
+### No children
+
+Here is the text talking about Translate with no children.
+
+
+> With render props:
+
+```jsx
+const Movies = props => (
+  <Translate>
+    {({ translate }) => 
+      <h1>{ translate('movie.title') }</h1>
+    }
+  </Translate>
+);
+```
+
+### Render props
+
+Here is the text talking about render props.
+
+
+
+
+
+## Change active language
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+
+const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
+  <ul className="selector">
+    {languages.map(lang => 
+      <li key={ lang.code }>
+        <button onClick={() => setActiveLanguage(lang.code)}>{ lang.name }</button>        
+      </li>
+    )}
+  </ul>
+);
+
+export default withLocalize(LanguageToggle);
+```
+
+Change active language content goes here...
+
+
+
+
+
+# Formatting Translations
+
+Translation data can be stored in either json or vanilla JS, but more importantly in order for `localize` to work with
+your data it will need to be in one of the following formats.
+
+## All langauges format
+
+> translations.json
+
+```javascript
+{
+  "greeting": [
+    "Hello",      (en)
+    "Bonjour",    (fr)
+  ],
+  "farewell": [
+    "Goodbye",    (en)
+    "Au revoir",  (fr)
+  ]
+}
+```
+
+**Use this format when you want to store translations for all languages in the same file.**
+
+Translation data will be an object where the property name is your translation id, and the value is an array of translations. The translation id must be unique across **all** your translations, and the value is an array that enforces the following rules:
+
+* Includes a translation for each language your app supports. TODO: exception being the default langauge
+* The order of the translation strings in the array matters! The order **MUST** follow the order of the languages array passed to [initialize]().
+
+<aside class="notice">
+The <a href="#"><code>addTranslation</code></a> action requires translations in this format.
+</aside>
+
+
+## Single language format
+
+> en.translations.json
+
+```javascript
+{
+  "greeting": "Hello",
+  "farewell": "Goodbye"
+}
+```
+
+> fr.translations.json
+
+```javascript
+{
+  "greeting":"Bonjour",
+  "farewell": "Au revoir"
+}
+```
+
+**Use this format when you want to have a translation file for each separate langauge.**
+
+Translation data will be an object where the property name is your translation id, and the value is the translation for the language. The translation id must be unique across **all** your translations.
+
+//TODO mention code splitting technique
+
+<aside class="notice">
+The <a href="#"><code>addTranslationForLanguage</code></a> action requires translations in this format.
+</aside>
+
+
+## Nested format
+
+> Multiple language format
+
+```javascript
+{
+  "welcome" {
+    "greeting": ["Hello", "Bonjour", "Hola"],
+    "farewell": ["Goodbye", "Au revoir", "Adiós"]
+  }
+}
+```
+
+> Single language format
+
+```javascript
+// en.json
+{
+  "welcome" {
+    "greeting": "Hello"
+    "farewell": "Goodbye"
+  }
+}
+// fr.json
+{
+  "welcome" {
+    "greeting": "Bonjour"
+    "farewell": "Au revoir"
+  }
+}
+```
+
+Both types of translation data support nested data format to help with organization of translations, and avoiding naming collisions with translation keys.
+
+// TODO: rewrite this...
+
+
+## Custom format
+
+> Your transform function will be passed the following arguments:
+
+```javascript
+const transformationFunction = (translationData: Object, languagesCodes: string[]) => {
+  // Your transformation logic goes here...
+};
+```
+
+If the above formats don't work you do have the option of setting the [translationTransform]() option when you [initialize]() localize. The `translationTransform` option takes a function that is responsible for taking your custom translation data, and transforming it into the [all langauges format]().
+
+// TODO: where to put example.. here or in features section?
+
 
 
 
