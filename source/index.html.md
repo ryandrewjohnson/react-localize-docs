@@ -32,7 +32,7 @@ import Main from './Main';
 
 const App = props => (
   <LocalizeProvider>
-    <Router> 
+    <Router>
       <Route path="/" component={Main} />
     </Router>
   </LocalizeProvider>
@@ -62,7 +62,7 @@ class Main extends React.Component {
 
     this.props.initialize({
       languages: [
-        { name: 'English', code: 'en' }, 
+        { name: 'English', code: 'en' },
         { name: 'French', code: 'fr' }
       ],
       translation: globalTranslations
@@ -93,16 +93,16 @@ import { withLocalize } from 'react-localize-redux';
 import movieTranslations from './translations/movies.json';
 
 class Movies extends React.Component {
-  
+
   constructor(props) {
-    super(props);    
+    super(props);
 
     this.props.addTranslation(movieTranslations);
   }
 
   render() {
     // render movie component
-  } 
+  }
 }
 
 export default withLocalize(Movies);
@@ -171,7 +171,7 @@ Here is the text talking about Translate with no children.
 ```jsx
 const Movies = props => (
   <Translate>
-    {({ translate }) => 
+    {({ translate }) =>
       <h1>{ translate('movie.title') }</h1>
     }
   </Translate>
@@ -194,9 +194,9 @@ import { withLocalize } from 'react-localize-redux';
 
 const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
   <ul className="selector">
-    {languages.map(lang => 
+    {languages.map(lang =>
       <li key={ lang.code }>
-        <button onClick={() => setActiveLanguage(lang.code)}>{ lang.name }</button>        
+        <button onClick={() => setActiveLanguage(lang.code)}>{ lang.name }</button>
       </li>
     )}
   </ul>
@@ -328,6 +328,46 @@ If the above formats don't work you do have the option of setting the [translati
 // TODO: where to put example.. here or in features section?
 
 
+
+
+
+# Guides
+
+## Adding dynamic content to translations
+
+> Translations with placeholders
+
+```json
+{
+  greeting: "Hello, ${name}!",
+  today: "Today is ${date}"
+}
+```
+
+> Using data attribute
+
+```jsx
+const Greeting = props => (
+  <Translate id="greeting" data={{name: 'Testy McTest'}}>
+    {'Hello ${ name }'}
+  </Translate>
+);
+```
+
+> Using render props
+
+```jsx
+const Today = props => (
+  <Translate>
+    {({ translate }) =>
+      <h1>{ translate('today', { date: Date.now() }) }</h1>
+    }
+  </Translate>
+);
+```
+
+You can add dynamic content to your translatins by inserting placeholders with the following format `${placeholder}`.
+Then using the [Translate]() component you will be able to pass in data that will inserted for each corresponding placeholder.
 
 
 
