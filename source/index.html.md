@@ -323,9 +323,7 @@ const transformationFunction = (translationData: Object, languagesCodes: string[
 };
 ```
 
-If the above formats don't work you do have the option of setting the [translationTransform]() option when you [initialize]() localize. The `translationTransform` option takes a function that is responsible for taking your custom translation data, and transforming it into the [all langauges format]().
 
-// TODO: where to put example.. here or in features section?
 
 
 
@@ -333,7 +331,7 @@ If the above formats don't work you do have the option of setting the [translati
 
 # Guides
 
-## Adding dynamic content to translations
+## Dynamic translations
 
 > Translations with placeholders
 
@@ -370,6 +368,47 @@ You can add dynamic content to your translatins by inserting placeholders with t
 Then using the [Translate]() component you will be able to pass in data that will inserted for each corresponding placeholder.
 
 
+## HTML translations
+
+> Translation with HTML
+
+```json
+{
+  "google-link": [
+    "<a href='https://www.google.en/'>Google</a>",
+    "<a href='https://www.google.fr/'>Google</a>"
+  ]
+}
+```
+
+> Override renderInnerHtml option for translation
+
+```jsx
+const Link = props => (
+  <Translate id="google-link" options={{ renderInnerHtml: false }} />
+);
+
+// with render props
+const Link = props => (
+  <Translate>
+    {({ translate }) =>
+      <p>{ translate('google-link', null, { renderInnerHtml: false })}</p>
+    }
+  </Translate>
+);
+```
+
+As long as you've set the [initialize]() option [renderInnerHtml]() to `true` any HTML markup in your translations
+will be rendered when using [Translate]().
+
+In addition to setting `renderInnerHtml` globally you can also override it for a specific translation's by passing an
+[options]() prop to `Translate`.
+
+
+## Custom translation format
+
+Do you have legacy translation data that doesn't fit one of localize's [supported formats]()? In this case you can try the 
+[translationTransform]() option, which is optionally set when you [initialize]() localize. The `translationTransform` option takes a function that is responsible for taking your custom translation data, and transforming it into localize's supported [all langauges format]().
 
 
 
