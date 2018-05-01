@@ -308,6 +308,20 @@ The <a href="#"><code>addTranslationForLanguage</code></a> action requires trans
 }
 ```
 
+> Use dot syntax for translation id
+
+```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
+const Greeting = props => (
+  <div>
+    <Translate id="welcome.greeting">Hello</Translate>
+    <Translate id="welcome.farewell">Goodbye</Translate>
+  </div>
+);
+```
+
 Both types of translation data support nested data format to help with organization of translations, and avoiding naming collisions with translation keys.
 
 // TODO: rewrite this...
@@ -315,13 +329,7 @@ Both types of translation data support nested data format to help with organizat
 
 ## Custom format
 
-> Your transform function will be passed the following arguments:
-
-```javascript
-const transformationFunction = (translationData: Object, languagesCodes: string[]) => {
-  // Your transformation logic goes here...
-};
-```
+// TODO: link to custom translation data guide section
 
 
 
@@ -331,11 +339,60 @@ const transformationFunction = (translationData: Object, languagesCodes: string[
 
 # Guides
 
+
+## Include inline default translations
+
+> Pass default language translations to `Translate`
+
+```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
+const Greeting = props => (
+  <div>
+    <Translate id="greeting">Hello</Translate>
+    <Translate id="farewell">Bye Bye</Translate>
+
+    <Translate id="congrats" options={{ ignoreTranslateChildren: true }}>
+      Way to go!
+    </Translate>
+  </div>
+);
+```
+> Translations `before` and `after` Translate
+
+```javascript
+// translation data before defaults are provided
+{
+  greeting: [null, 'Bonjour'],
+  farewell: ['Goodbye', 'Au Revoir'],
+  congrats: ['Congratulations', 'Toutes nos félicitations']
+}
+
+// translation data after defaults are passed with Translate
+{
+  greeting: ['Hello', 'Bonjour'],
+  farewell: ['Bye Bye', 'Au Revoir'],
+  congrats: ['Congratulations', 'Toutes nos félicitations']
+}
+```
+
+With [Translate]() you can include an inline translation for the defualt langauge by passing it
+as `children` to the component.
+
+When you pass an inline translation to `Translate` it will be added to your translation data under the corresponding `id`
+for the default language. If the default langauge's translation for that `id` already exists it will be overriden
+with the inline translation.
+
+If you don't want existing translation data overriden you can set `Translate`'s [ignoreTranslateChildren]() option to `true`.
+When set to `true` the existing translation data will always be rendered, and the inline translation will be ignored.
+
+
 ## Dynamic translations
 
 > Translations with placeholders
 
-```json
+```javascript
 {
   greeting: "Hello, ${name}!",
   today: "Today is ${date}"
@@ -345,6 +402,9 @@ const transformationFunction = (translationData: Object, languagesCodes: string[
 > Using data attribute
 
 ```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
 const Greeting = props => (
   <Translate id="greeting" data={{name: 'Testy McTest'}}>
     {'Hello ${ name }'}
@@ -355,6 +415,9 @@ const Greeting = props => (
 > Using render props
 
 ```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
 const Today = props => (
   <Translate>
     {({ translate }) =>
@@ -384,6 +447,9 @@ Then using the [Translate]() component you will be able to pass in data that wil
 > Override renderInnerHtml option for translation
 
 ```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
 const Link = props => (
   <Translate id="google-link" options={{ renderInnerHtml: false }} />
 );
@@ -405,54 +471,380 @@ In addition to setting `renderInnerHtml` globally you can also override it for a
 [options]() prop to `Translate`.
 
 
-## Custom translation format
+## Handle missing translations
 
-Do you have legacy translation data that doesn't fit one of localize's [supported formats]()? In this case you can try the 
-[translationTransform]() option, which is optionally set when you [initialize]() localize. The `translationTransform` option takes a function that is responsible for taking your custom translation data, and transforming it into localize's supported [all langauges format]().
+By default when a translation isn't found the following message will be rendered in it's place:
 
+**`Missing translationId: ${ translationId } for language: ${ languageCode }`**
 
+> Return translation for default language in place of missing translation
 
-# Authentication
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
 
-> To authorize, use this code:
+const onMissingTranslation = ({ defaultTranslation }) => defaultTranslation;
 
-```ruby
-require 'kittn'
+class Missing extends React.Component {
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+  constructor(props) {
+    super(props);
+
+    this.props.initialize({
+      languages: ['en', 'fr'],
+      options: { onMissingTranslation }
+    });
+  }
+}
+
+export default withLocalize(Missing);
 ```
 
-```python
-import kittn
+> Override onMissingTranslation for specific translation
 
-api = kittn.authorize('meowmeowmeow')
+```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
+const onMissingTranslation = ({ translationId, languageCode }) => {
+  return `Nada for ${ translationId } - ${ languageCode }`;
+}
+
+const Missing = props => (
+  <Translate id="missing" options={{ onMissingTranslation }} />
+);
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+### Adding custom missing translation logic
+
+This can be overidden at a global level by providing the [onMissingTranslation]() option to [initialize]().
+You'll need to pass `onMissingTranslation` a function for it's value, and that function should return
+a string that will be rendered in the missing translation's place.
+
+The `onMissingTranslation` function will receive a single argument - an object with the following properties:
+
+Property | Type | Description
+--------- | ------- | -----------
+translationId | string | The id for the missing translation
+languageCode | string | The languageCode for the language being retrieved
+defaultTranslation | string | The translation for the default language - *if defined*
+
+
+## Retrieving multiple translations
+
+> Given following translations
 
 ```javascript
-const kittn = require('kittn');
+{
+  greeting: "Hello, ${name}!",
+  today: "Today is ${date}"
+}
+```
+> Use the spread operator to pass the translations as props
 
-let api = kittn.authorize('meowmeowmeow');
+```jsx
+import React from 'react';
+import { Translate } from 'react-localize-redux';
+
+const Article = props => (
+  <div>
+    <h2>{ props['greeting'] }</h2>
+    <p>{ props['today'] }</p>
+  </div>
+);
+
+const Page = ({ translate }) => (
+  <Translate>
+    {({ translate })} =>
+      <Article
+        { ...translate(['greeting', 'today'], { name: 'Ted', date: Date.now() }) }
+      />
+    }
+  </Translate>
+);
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+To retrieve multiple translations using [translate]() pass an array of translation ids instead of a single id. This will return an object with translated strings mapped to translation ids.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+## Custom translation format
 
-`Authorization: meowmeowmeow`
+> Unsupported translation format
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+```javascript
+const customTranslation = {
+  en: {
+    greeting: 'Hello',
+    farewell: 'Goodbye'
+  },
+  fr: {
+    greeting: 'Bonjour',
+    farewell: 'Au Revoir'
+  }
+};
+```
 
-# Kittens
+> Transformation function must return data in [all languages format]()
+
+```javascript
+{
+  greeting: ['Hello', 'Bonjour'],
+  farewell: ['Goodbye', 'Au Revoir']
+}
+```
+
+> Pass the transformFunction to addTranslation:
+
+```javascript
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+
+const transformFunction = (translationData: Object, languagesCodes: string[]) => {
+  // Your transformation logic goes here...
+};
+
+class CustomStuff extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.props.addTranslation(
+      customTranslation,
+      { translationTransform: transformFunction }
+    );
+  }
+}
+
+export default withLocalize(CustomStuff);
+```
+
+Do you have legacy translation data that doesn't fit one of localize's [supported formats]()? In this case you can try [addTranslation]()'s
+[translationTransform]() option, which can be passed when adding translations.
+
+The `translationTransform` option takes a function that is responsible for transforming your custom translation data into localize's supported [all langauges format]().
+
+The translation function will be passed the below arguments, and should return data in `all languages format`:
+
+Parameter | Type | Description
+--------- | ------- | -----------
+translationData | Object | The custom translation data before transformation
+languagesCodes | string[] | An array of languageCodes based on languages passed to initialize
+
+
+
+
+
+# FAQ
+
+## What if my translation data isn't in the required format?
+
+If you don't have control over the translation data for your application you can use the [translationTransform]() option.
+See [Custom translation format]() for more details.
+
+
+## How do I persist active language after refresh?
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+
+class Main extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    const languages = ['en', 'fr', 'es'];
+    const defaultLanguage = window.storage.getItem('languageCode') || languages[0];
+
+    this.props.initialize({
+      languages,
+      options: { defaultLanguage }
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevLangCode = prevProps.activeLanguage && prevProps.activeLanguage.code;
+    const curLangCode = this.props.activeLanguage && this.props.activeLanguage.code;
+
+    const hasLanguageChanged = prevLangCode !== curLangCode;
+
+    if (hasLanguageChanged) {
+      window.storage.setItem('languageCode', curLangCode);
+    }
+  }
+
+  render() {
+    // render Main layout component
+  }
+}
+
+export default withLocalize(Main);
+```
+
+Persisting the user’s active language after a refresh can be done a many ways, and how that is done is really up to you.
+The following is one approach leveraging local storage to store and retrieve the active language.
+
+
+## How do I handle currency, date, and other localization transformations?
+
+> Basic localized number formatter
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+
+const FormatNumber = props => {
+  return props.activeLanguage
+    ? Number(props.children).toLocaleString(props.activeLanguage.code)
+    : null;
+}
+
+export default withLocalize(FormatNumber);
+```
+
+This logic was excluded on purpose in order to keep this API focused, and package size small. If you do require localization based formatting you do have the choice of using a third-party library that speciializes in formatting e.g([Moment](https://momentjs.com/) for dates). Or you can even implement this logic yourself...
+
+
+## How does react-localize differ from react-intl?
+
+* [react-intl](https://github.com/yahoo/react-intl) is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with `react-localize` you are responsible for those things - see [How do I handle currency, date, and other localization transformations?]()
+
+* `react-intl` doesn't work with Redux out of the box, and needs an additional library [react-intl-redux](https://github.com/ratson/react-intl-redux) to add support. // TODO: links to redux implementation
+
+* For further discussion on this topic see [original github issue](https://github.com/ryandrewjohnson/react-localize-redux/issues/21).
+
+
+## Can I use older versions of React?
+
+// TODO: do I need this section
+
+
+
+
+
+# API Reference
+
+## LocalizeProvider
+
+
+## initialize
+
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+### Parameters
+
+Name | Type | Description
+--------- | ------- | -----------
+options | object |
+
+### Options
+
+Name | Type | Description
+--------- | ------- | -----------
+renderInnerHtml | boolean |
+onMissingTranslation | function |
+defaultLanguage | string |
+
+
+
+## addTranslation
+
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+
+The `addTranslation` method is used to add translations data in the [all languages format]() to localize.
+Once you've translation data has been added you will be able to access it using [Translate]().
+
+### Parameters
+
+Name | Type | Description
+--------- | ------- | -----------
+data | object | Translation data in [all languages format]().
+options | object | Optional configuration for translation data.
+
+### Options
+
+Name | Type | Description
+--------- | ------- | -----------
+translationTransform | function | A transform function for dealing with custom translation data. See [Custom translation format]().
+
+
+## addTranslationForLanguage
+
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+
+The `addTranslationForLanguage` method is used to add translations data in the [single language format]() to localize.
+Once you've translation data has been added you will be able to access it using [Translate]().
+
+### Parameters
+
+Name | Type | Description
+--------- | ------- | -----------
+data | object | Translation data in [single language format]().
+language | string | The language code this translation data belongs to.
+
+
+## setActiveLanguage
+
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+
+The `setActiveLanguage` method is used to change localize's active language.
+
+### Parameters
+
+Name | Type | Description
+--------- | ------- | -----------
+language | string | The language code you want to set as active.
+
+
+## Translate
+
+The `<Translate />` component is how you access your translations from your components.
+
+### Props
+
+Name | Type | Description
+--------- | ------- | -----------
+id | string | The id for the translation you want to insert.
+data | object | Optional data for variable replacements in [dynamic translations]().
+options | object |
+
+### Options
+
+Name | Type | Description
+--------- | ------- | -----------
+language | string |
+renderInnerHtml | boolean |
+onMissingTranslation | function |
+ignoreTranslateChildren | boolean |
+
+
+## withLocalize
+
+
+## LocalizeContext
+
+
+
+
 
 ## Get All Kittens
 
