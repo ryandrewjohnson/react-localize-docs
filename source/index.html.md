@@ -23,6 +23,8 @@ Intro text can go here...
 
 ## Add LocalizeProvider
 
+> Wrap your app with `<LocalizeProvider />`
+
 ```jsx
 import React from 'react';
 import { render } from 'react-dom';
@@ -44,6 +46,10 @@ render(<App />, document.getElementById('root'));
 By wrapping your application with `<LocalizeProvider />` all component's in the heirarchy below
 will have the ability to work with localize.
 
+<aside class="success">
+<strong>Using Redux?</strong> — if you wish to store your translations in redux then all you need to do
+is pass the redux <code>store</code> to <code>LocalizeProvider</code>.
+</aside>
 
 
 
@@ -77,7 +83,24 @@ class Main extends React.Component {
 export default withLocalize(Main);
 ```
 
-Initialize localize content goes here...
+Before accessing any trnaslations in your app you will need to [initialize]() localize with your settings.
+The settings object requires `lanuages`, while `translation`, and `options` are optional.
+
+Property | Type | Description
+--------- | ------- | -----------
+languages | array | An array of languages your translations will support.
+translation | object | Translation data in [all languages]() or [single language]() format.
+options | object | See [initialize options]().
+
+<aside class="notice">
+In order for your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+</aside>
+
+<aside class="notice">
+Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+</aside>
+
+
 
 
 
@@ -116,9 +139,16 @@ import frenchMovieTranslations from './translations/fr.movies.json';
 this.props.addTranslationForLanguage(frenchMovieTranslations, 'fr');
 ```
 
-Add translation data content goes here...
+Translation data comes in two different flavours - the [all languages]() and [single language]() format.
 
+* Use [addTranslation]() method  to add data in `all languges` format.
+* Use [addTranslationForLanguage]() method to add data in `single languge` format.
 
+As soon as you add the translation data to localize it can be rendered in your components using [Translate]().
+
+<aside class="notice">
+In order for your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+</aside>
 
 
 
