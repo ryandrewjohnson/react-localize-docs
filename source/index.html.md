@@ -93,7 +93,7 @@ translation | object | Translation data in [all languages]() or [single language
 options | object | See [initialize options]().
 
 <aside class="notice">
-In order for your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
 </aside>
 
 <aside class="notice">
@@ -147,7 +147,7 @@ Translation data comes in two different flavours - the [all languages]() and [si
 As soon as you add the translation data to localize it can be rendered in your components using [Translate]().
 
 <aside class="notice">
-In order for your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+For your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
 </aside>
 
 
@@ -164,9 +164,6 @@ In order for your component to have access to the <code>addTranslation</code> an
 }
 ```
 
-Here is the intro text beside the JSON.
-
-
 > With default language:
 
 ```jsx
@@ -177,24 +174,13 @@ const Movies = props => (
   <h1><Translate id="movie.title">Jurassic Park</Translate></h1>
 );
 ```
-
-### With children
-
-Here is the text talking about Translate with children.
-
-
-> With default language:
+> With self-closing tag:
 
 ```jsx
 const Movies = props => (
   <h1><Translate id="movie.title" /></h1>
 );
 ```
-
-### No children
-
-Here is the text talking about Translate with no children.
-
 
 > With render props:
 
@@ -208,15 +194,33 @@ const Movies = props => (
 );
 ```
 
-### Render props
+Once you've added your translation data you'll need a way to get it into your components. That is where the [Translate]() component comes in, and it can be used in a variety of ways. The `id` prop passed to `Translate` should match the id of the translation data you want to insert
 
-Here is the text talking about render props.
+### Translate with default translations:
 
+You can include your default language's tranlslation with `Translate` by passing it as children to the component. The translation will automatically
+be added to your translation data for that `id`' and default language.
+
+### Translate with self-closing tag
+
+If you don't wish to include default translations then all you need provide is a translation `id` prop, and no `children`.
+
+### Translate with Render props
+
+You can also pass Translate a function as it's child that returns the elements you want to render. This function is commonly referred to as a [render prop function](https://reactjs.org/docs/render-props.html), and is passed a single object as a parameter with the following props:
+
+Property | Type | Description
+--------- | ------- | -----------
+translate | function |
+activeLanguage | string |
+languages | array |
 
 
 
 
 ## Change active language
+
+> Language selector using `setActiveLanguage`:
 
 ```jsx
 import React from 'react';
@@ -235,8 +239,11 @@ const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
 export default withLocalize(LanguageToggle);
 ```
 
-Change active language content goes here...
+Use the [setActiveLanguage]() method to change localize's active language.
 
+<aside class="notice">
+For your component to have access to the <code>setActiveLanguage</code> prop you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+</aside>
 
 
 
