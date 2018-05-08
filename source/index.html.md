@@ -7,9 +7,6 @@ toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
-includes:
-  - errors
-
 search: true
 ---
 
@@ -207,13 +204,7 @@ If you don't wish to include default translations then all you need provide is a
 
 ### Translate with Render props
 
-You can also pass Translate a function as it's child that returns the elements you want to render. This function is commonly referred to as a [render prop function](https://reactjs.org/docs/render-props.html), and is passed a single object as a parameter with the following props:
-
-Property | Type | Description
---------- | ------- | -----------
-translate | function |
-activeLanguage | string |
-languages | array |
+You can also pass Translate a function as it's child that returns the elements you want to render. This function is commonly referred to as a [render prop function](https://reactjs.org/docs/render-props.html), and is passed a single object with props [translate](), [activeLanguage](), and [languages]().
 
 
 
@@ -306,7 +297,6 @@ The <a href="#"><code>addTranslation</code></a> action requires translations in 
 
 Translation data will be an object where the property name is your translation id, and the value is the translation for the language. The translation id must be unique across **all** your translations.
 
-//TODO mention code splitting technique
 
 <aside class="notice">
 The <a href="#"><code>addTranslationForLanguage</code></a> action requires translations in this format.
@@ -359,14 +349,12 @@ const Greeting = props => (
 );
 ```
 
-Both types of translation data support nested data format to help with organization of translations, and avoiding naming collisions with translation keys.
-
-// TODO: rewrite this...
+Both types of translation data formats support nesting to help with organization of translations, and avoid naming collisions with translation ids.
 
 
 ## Custom format
 
-// TODO: link to custom translation data guide section
+See [Custom translation format]() for details.
 
 
 
@@ -676,7 +664,7 @@ languagesCodes | string[] | An array of languageCodes based on languages passed 
 ## What if my translation data isn't in the required format?
 
 If you don't have control over the translation data for your application you can use the [translationTransform]() option.
-See [Custom translation format]() for more details.
+See [Custom translation format]() guide for more details.
 
 
 ## How do I persist active language after refresh?
@@ -746,7 +734,7 @@ This logic was excluded on purpose in order to keep this API focused, and packag
 
 * [react-intl](https://github.com/yahoo/react-intl) is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with `react-localize` you are responsible for those things - see [How do I handle currency, date, and other localization transformations?]()
 
-* `react-intl` doesn't work with Redux out of the box, and needs an additional library [react-intl-redux](https://github.com/ratson/react-intl-redux) to add support. // TODO: links to redux implementation
+* `react-intl` doesn't work with Redux out of the box, and needs an additional library [react-intl-redux](https://github.com/ratson/react-intl-redux) to add support.
 
 * For further discussion on this topic see [original github issue](https://github.com/ryandrewjohnson/react-localize-redux/issues/21).
 
@@ -764,6 +752,35 @@ This logic was excluded on purpose in order to keep this API focused, and packag
 ## LocalizeProvider
 
 
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+
+By wrapping your application with <LocalizeProvider /> all component's in the heirarchy below will have the ability to work with localize.
+
+Property | Type | Description
+--------- | ------- | -----------
+store | Redux store | Optionally pass your store if your app uses Redux.
+
+<aside class="notice">
+<code>LocalizeProvider</code> is a wrapper around React's native <a href="https://reactjs.org/docs/context.html#provider">Context Provider</a>.
+</aside>
+
+## withLocalize
+
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+
+
+
+
 ## initialize
 
 > Usage:
@@ -772,20 +789,29 @@ This logic was excluded on purpose in order to keep this API focused, and packag
 import React from 'react';
 import { withLocalize } from 'react-localize-redux';
 ```
-### Parameters
 
-Name | Type | Description
+You will need to [initialize]() localize with the supported languages in your translations. Optionally you can
+also provide initial translation data, as well as some additional options.
+
+<aside class="notice">
+Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+</aside>
+
+### Properties
+
+Property | Type | Description
 --------- | ------- | -----------
-options | object |
+languages | array | An array of languages your translations will support.
+translation | object | Translation data in [all languages]() or [single language]() format.
+options | object | See options table below.
 
 ### Options
 
-Name | Type | Description
---------- | ------- | -----------
-renderInnerHtml | boolean |
-onMissingTranslation | function |
-defaultLanguage | string |
-
+Name | Type | Default | Description
+--------- | ------- | ----------- | -----------
+renderInnerHtml | boolean | false | Controls whether HTML in your translations will be rendered or returned as a plain string.
+onMissingTranslation | function | returns default missing message | See [Handle missing translations]() for details.
+defaultLanguage | string | languages[0] | The language code for the language you'd like to set as the defualt.
 
 
 ## addTranslation
@@ -854,202 +880,52 @@ language | string | The language code you want to set as active.
 
 ## Translate
 
+> Usage:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+```
+
 The `<Translate />` component is how you access your translations from your components.
 
-### Props
+### Translate Props:
 
 Name | Type | Description
 --------- | ------- | -----------
 id | string | The id for the translation you want to insert.
 data | object | Optional data for variable replacements in [dynamic translations]().
-options | object |
+options | object | See options table below.
 
-### Options
+### Render props API:
+
+You can also pass Translate a function as it's child that returns the elements you want to render. This function is commonly referred to as a [render prop function](https://reactjs.org/docs/render-props.html), and is passed a single object with the following props:
+
+Property | Type | Description
+--------- | ------- | -----------
+translate | function | See translate function below.
+activeLanguage | object | The active language object.
+languages | array | An array of languages your translations will support.
+
+### translate function
+
+The translate function will return single, or multiple translations depending on the arguments passed. See [retrieving multiple translations]() for more detail.
+
+Parameter | Type | Description
+--------- | ------- | -----------
+id | string | The id for the translation you want to insert.
+data | object | Optional data for variable replacements in [dynamic translations]().
+options | object | See options table below.
+
+### Translate/translate options
 
 Name | Type | Description
 --------- | ------- | -----------
-language | string |
-renderInnerHtml | boolean |
-onMissingTranslation | function |
-ignoreTranslateChildren | boolean |
-
-
-## withLocalize
+language | string | Optionally pass a language code to force `Translate` to render a specific language.
+renderInnerHtml | boolean | Override initialize [renderInnerHtml]() option for translation.
+onMissingTranslation | function | Override initialize [onMissingTranslation]() option for translation.
+ignoreTranslateChildren | boolean | If `true` default translations passed as `children` to `Translate` will be ignored, and not automatically added to your translation data.
 
 
 ## LocalizeContext
-
-
-
-
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
 
