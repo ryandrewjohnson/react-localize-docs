@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>react-localize documentation</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -210,293 +210,1448 @@
     </a>
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-        </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#getting-started" class="toc-h1 toc-link" data-title="getting-started">Getting Started</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#add-localizeprovider" class="toc-h2 toc-link" data-title="add-localizeprovider">Add LocalizeProvider</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#initialize-localize" class="toc-h2 toc-link" data-title="initialize-localize">Initialize localize</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#add-translation-data" class="toc-h2 toc-link" data-title="add-translation-data">Add translation data</a>
+                  </li>
+                  <li>
+                    <a href="#add-translations-to-components" class="toc-h2 toc-link" data-title="add-translations-to-components">Add translations to components</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#translate-with-default-translations" class="toc-h3 toc-link" data-title="Getting Started">Translate with default translations:</a>
+                          </li>
+                          <li>
+                            <a href="#translate-with-self-closing-tag" class="toc-h3 toc-link" data-title="Getting Started">Translate with self-closing tag</a>
+                          </li>
+                          <li>
+                            <a href="#translate-with-render-props" class="toc-h3 toc-link" data-title="Getting Started">Translate with Render props</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                    <a href="#change-active-language" class="toc-h2 toc-link" data-title="change-active-language">Change active language</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#formatting-translations" class="toc-h1 toc-link" data-title="formatting-translations">Formatting Translations</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#all-langauges-format" class="toc-h2 toc-link" data-title="all-langauges-format">All langauges format</a>
+                  </li>
+                  <li>
+                    <a href="#single-language-format" class="toc-h2 toc-link" data-title="single-language-format">Single language format</a>
+                  </li>
+                  <li>
+                    <a href="#nested-format" class="toc-h2 toc-link" data-title="nested-format">Nested format</a>
+                  </li>
+                  <li>
+                    <a href="#custom-format" class="toc-h2 toc-link" data-title="custom-format">Custom format</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#guides" class="toc-h1 toc-link" data-title="guides">Guides</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#include-inline-default-translations" class="toc-h2 toc-link" data-title="include-inline-default-translations">Include inline default translations</a>
+                  </li>
+                  <li>
+                    <a href="#dynamic-translations" class="toc-h2 toc-link" data-title="dynamic-translations">Dynamic translations</a>
+                  </li>
+                  <li>
+                    <a href="#html-translations" class="toc-h2 toc-link" data-title="html-translations">HTML translations</a>
+                  </li>
+                  <li>
+                    <a href="#handle-missing-translations" class="toc-h2 toc-link" data-title="handle-missing-translations">Handle missing translations</a>
+                  </li>
+                  <li>
+                    <a href="#retrieving-multiple-translations" class="toc-h2 toc-link" data-title="retrieving-multiple-translations">Retrieving multiple translations</a>
+                  </li>
+                  <li>
+                    <a href="#custom-translation-format" class="toc-h2 toc-link" data-title="custom-translation-format">Custom translation format</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#faq" class="toc-h1 toc-link" data-title="faq">FAQ</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#what-if-my-translation-data-isn-39-t-in-the-required-format" class="toc-h2 toc-link" data-title="what-if-my-translation-data-isn-t-in-the-required-format">What if my translation data isn't in the required format?</a>
+                  </li>
+                  <li>
+                    <a href="#how-do-i-persist-active-language-after-refresh" class="toc-h2 toc-link" data-title="how-do-i-persist-active-language-after-refresh">How do I persist active language after refresh?</a>
+                  </li>
+                  <li>
+                    <a href="#how-do-i-handle-currency-date-and-other-localization-transformations" class="toc-h2 toc-link" data-title="how-do-i-handle-currency-date-and-other-localization-transformations">How do I handle currency, date, and other localization transformations?</a>
+                  </li>
+                  <li>
+                    <a href="#how-does-react-localize-differ-from-react-intl" class="toc-h2 toc-link" data-title="how-does-react-localize-differ-from-react-intl">How does react-localize differ from react-intl?</a>
+                  </li>
+                  <li>
+                    <a href="#can-i-use-older-versions-of-react" class="toc-h2 toc-link" data-title="can-i-use-older-versions-of-react">Can I use older versions of React?</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#api-reference" class="toc-h1 toc-link" data-title="api-reference">API Reference</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#localizeprovider" class="toc-h2 toc-link" data-title="localizeprovider">LocalizeProvider</a>
+                  </li>
+                  <li>
+                    <a href="#localizecontext" class="toc-h2 toc-link" data-title="localizecontext">LocalizeContext</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#initialize" class="toc-h3 toc-link" data-title="API Reference">initialize</a>
+                          </li>
+                          <li>
+                            <a href="#addtranslation" class="toc-h3 toc-link" data-title="API Reference">addTranslation</a>
+                          </li>
+                          <li>
+                            <a href="#addtranslationforlanguage" class="toc-h3 toc-link" data-title="API Reference">addTranslationForLanguage</a>
+                          </li>
+                          <li>
+                            <a href="#setactivelanguage" class="toc-h3 toc-link" data-title="API Reference">setActiveLanguage</a>
+                          </li>
+                          <li>
+                            <a href="#translate" class="toc-h3 toc-link" data-title="API Reference">translate</a>
+                          </li>
+                          <li>
+                            <a href="#languages" class="toc-h3 toc-link" data-title="API Reference">languages</a>
+                          </li>
+                          <li>
+                            <a href="#activelanguage" class="toc-h3 toc-link" data-title="API Reference">activeLanguage</a>
+                          </li>
+                          <li>
+                            <a href="#defaultlanguage" class="toc-h3 toc-link" data-title="API Reference">defaultLanguage</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                    <a href="#withlocalize" class="toc-h2 toc-link" data-title="withlocalize">withLocalize</a>
+                  </li>
+                  <li>
+                    <a href="#translate-2" class="toc-h2 toc-link" data-title="translate">Translate</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#render-props-api" class="toc-h3 toc-link" data-title="API Reference">Render props API:</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
           </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='#'>Project on Github</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+        <h1 id='getting-started'>Getting Started</h1>
+<p>TODO: Intro text can go here...</p>
+<h2 id='add-localizeprovider'>Add LocalizeProvider</h2>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Wrap your app with <code>&lt;LocalizeProvider /&gt;</code></p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">render</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserRouter</span> <span class="nx">as</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-router-dom'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">LocalizeProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Main</span> <span class="nx">from</span> <span class="s1">'./Main'</span><span class="p">;</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">LocalizeProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Router</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path=</span><span class="s2">"/"</span> <span class="na">component=</span><span class="si">{</span><span class="nx">Main</span><span class="si">}</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Router</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">LocalizeProvider</span><span class="p">&gt;</span>
+<span class="p">);</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="nx">render</span><span class="p">(&lt;</span><span class="nc">App</span> <span class="p">/&gt;,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'root'</span><span class="p">));</span>
 </code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>By wrapping your application with <code>&lt;LocalizeProvider /&gt;</code> all component&#39;s in the heirarchy below
+will have the ability to work with localize.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<aside class="success">
+<strong>Using Redux?</strong> — if you wish to store your translations in redux then all you need to do
+is pass the redux <code>store</code> to <code>LocalizeProvider</code>.
+</aside>
+<h2 id='initialize-localize'>Initialize localize</h2><pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">globalTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/global.json'</span><span class="p">;</span>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<span class="kr">class</span> <span class="nx">Main</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+      <span class="na">languages</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'English'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'en'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'French'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'fr'</span> <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">translation</span><span class="p">:</span> <span class="nx">globalTranslations</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// render Main layout component</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
+</code></pre>
+<p>Before accessing any trnaslations in your app you will need to <a href="/#initialize">initialize</a> localize with your settings.
+The settings object requires <code>lanuages</code>, while <code>translation</code>, and <code>options</code> are optional.</p>
+
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>languages</td>
+<td>array</td>
+<td>An array of languages your translations will support.</td>
+</tr>
+<tr>
+<td>translation</td>
+<td>object</td>
+<td>Translation data in <a href="/#all-langauges-format">all languages</a> or <a href="/#single-language-format">single language</a> format.</td>
+</tr>
+<tr>
+<td>options</td>
+<td>object</td>
+<td>See <a href="/#initialize">initialize options</a>.</td>
+</tr>
+</tbody></table>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<aside class="notice">
+Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+</aside>
+<h2 id='add-translation-data'>Add translation data</h2>
+<blockquote>
+<p>To add multi language translations, use <code>addTranslation</code>:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">movieTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/movies.json'</span><span class="p">;</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<span class="kr">class</span> <span class="nx">Movies</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">addTranslation</span><span class="p">(</span><span class="nx">movieTranslations</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// render movie component</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Movies</span><span class="p">);</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>To add single language translations, use <code>addTranslationForLanguage</code>:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">frenchMovieTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/fr.movies.json'</span><span class="p">;</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">addTranslationForLanguage</span><span class="p">(</span><span class="nx">frenchMovieTranslations</span><span class="p">,</span> <span class="s1">'fr'</span><span class="p">);</span>
+</code></pre>
+<p>Translation data comes in two different flavours - the <a href="/#all-langauges-format">all languages</a> and <a href="/#single-language-format">single language</a> format.</p>
+
+<ul>
+<li>Use <a href="/#addtranslation">addTranslation</a> method  to add data in <code>all languges</code> format.</li>
+<li>Use <a href="/#addtranslationforlanguage">addTranslationForLanguage</a> method to add data in <code>single languge</code> format.</li>
+</ul>
+
+<p>As soon as you add the translation data to localize it can be rendered in your components using <a href="/#translate-2">Translate</a>.</p>
+
+<aside class="notice">
+For your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
+</aside>
+<h2 id='add-translations-to-components'>Add translations to components</h2>
+<blockquote>
+<p>Assuming the following translations have been added:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"movie"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Jurassic Park"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Le Parc jurassique"</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p>Once you&#39;ve added your translation data you&#39;ll need a way to get it into your components. That is where the <a href="/#translate-2">Translate</a> component comes in, and it can be used in a variety of ways. The <code>id</code> prop passed to <code>Translate</code> should match the id of the translation data you want to insert</p>
+<h3 id='translate-with-default-translations'>Translate with default translations:</h3>
+<blockquote>
+<p>With default language:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Movies</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"movie.title"</span><span class="p">&gt;</span>Jurassic Park<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>You can include your default language&#39;s tranlslation with <code>Translate</code> by passing it as children to the component. The translation will automatically
+be added to your translation data for that <code>id</code>&#39; and default language.</p>
+<h3 id='translate-with-self-closing-tag'>Translate with self-closing tag</h3>
+<blockquote>
+<p>With self-closing tag:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">const</span> <span class="nx">Movies</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"movie.title"</span> <span class="p">/&gt;&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>If you don&#39;t wish to include default translations then all you need provide is a translation <code>id</code> prop, and no <code>children</code>.</p>
+<h3 id='translate-with-render-props'>Translate with Render props</h3>
+<blockquote>
+<p>With render props:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">const</span> <span class="nx">Movies</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="p">({</span> <span class="nx">translate</span> <span class="p">})</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'movie.title'</span><span class="p">)</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>You can also pass Translate a function as it&#39;s child that returns the elements you want to render. This function is commonly referred to as a <a href="https://reactjs.org/docs/render-props.html">render prop function</a>, and is passed a single object with props <a href="/#translate-2">Translate</a>, <a href="/#activelanguage">activeLanguage</a>, and <a href="/#languages">languages</a>.</p>
+<h2 id='change-active-language'>Change active language</h2>
+<blockquote>
+<p>Language selector using <code>setActiveLanguage</code>:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">LanguageToggle</span> <span class="o">=</span> <span class="p">({</span><span class="nx">languages</span><span class="p">,</span> <span class="nx">activeLanguage</span><span class="p">,</span> <span class="nx">setActiveLanguage</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">className=</span><span class="s2">"selector"</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">languages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">lang</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key=</span><span class="si">{</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">code</span> <span class="si">}</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setActiveLanguage</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">)</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">LanguageToggle</span><span class="p">);</span>
+</code></pre>
+<p>Use the <a href="/#setactivelanguage">setActiveLanguage</a> method to change localize&#39;s active language.</p>
+
+<aside class="notice">
+For your component to have access to the <code>setActiveLanguage</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
+</aside>
+<h1 id='formatting-translations'>Formatting Translations</h1>
+<p>Translation data can be stored in either json or vanilla JS, but more importantly in order for <code>localize</code> to work with
+your data it will need to be in one of the following formats.</p>
+<h2 id='all-langauges-format'>All langauges format</h2>
+<blockquote>
+<p>translations.json</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"greeting"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"Hello"</span><span class="p">,</span>      <span class="p">(</span><span class="nx">en</span><span class="p">)</span>
+    <span class="s2">"Bonjour"</span><span class="p">,</span>    <span class="p">(</span><span class="nx">fr</span><span class="p">)</span>
+  <span class="p">],</span>
+  <span class="s2">"farewell"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"Goodbye"</span><span class="p">,</span>    <span class="p">(</span><span class="nx">en</span><span class="p">)</span>
+    <span class="s2">"Au revoir"</span><span class="p">,</span>  <span class="p">(</span><span class="nx">fr</span><span class="p">)</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<p><strong>Use this format when you want to store translations for all languages in the same file.</strong></p>
+
+<p>Translation data will be an object where the property name is your translation id, and the value is an array of translations. The translation id must be unique across <strong>all</strong> your translations, and the value is an array that enforces the following rules:</p>
+
+<ul>
+<li>Includes a translation for each language your app supports. TODO: exception being the default langauge</li>
+<li>The order of the translation strings in the array matters! The order <strong>MUST</strong> follow the order of the languages array passed to <a href="/#initialize">initialize</a>.</li>
+</ul>
+
+<aside class="notice">
+The <a href="#addtranslation"><code>addTranslation</code></a> action requires translations in this format.
+</aside>
+<h2 id='single-language-format'>Single language format</h2>
+<blockquote>
+<p>en.translations.json</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"greeting"</span><span class="p">:</span> <span class="s2">"Hello"</span><span class="p">,</span>
+  <span class="s2">"farewell"</span><span class="p">:</span> <span class="s2">"Goodbye"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>fr.translations.json</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"greeting"</span><span class="p">:</span><span class="s2">"Bonjour"</span><span class="p">,</span>
+  <span class="s2">"farewell"</span><span class="p">:</span> <span class="s2">"Au revoir"</span>
+<span class="p">}</span>
+</code></pre>
+<p><strong>Use this format when you want to have a translation file for each separate langauge.</strong></p>
+
+<p>Translation data will be an object where the property name is your translation id, and the value is the translation for the language. The translation id must be unique across <strong>all</strong> your translations.</p>
+
+<aside class="notice">
+The <a href="#addtranslationforlanguage"><code>addTranslationForLanguage</code></a> action requires translations in this format.
+</aside>
+<h2 id='nested-format'>Nested format</h2>
+<blockquote>
+<p>Multiple language format</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"welcome"</span> <span class="p">{</span>
+    <span class="s2">"greeting"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="s2">"Bonjour"</span><span class="p">,</span> <span class="s2">"Hola"</span><span class="p">],</span>
+    <span class="s2">"farewell"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Goodbye"</span><span class="p">,</span> <span class="s2">"Au revoir"</span><span class="p">,</span> <span class="s2">"Adiós"</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Single language format</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// en.json</span>
+<span class="p">{</span>
+  <span class="s2">"welcome"</span> <span class="p">{</span>
+    <span class="s2">"greeting"</span><span class="p">:</span> <span class="s2">"Hello"</span>
+    <span class="s2">"farewell"</span><span class="p">:</span> <span class="s2">"Goodbye"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// fr.json</span>
+<span class="p">{</span>
+  <span class="s2">"welcome"</span> <span class="p">{</span>
+    <span class="s2">"greeting"</span><span class="p">:</span> <span class="s2">"Bonjour"</span>
+    <span class="s2">"farewell"</span><span class="p">:</span> <span class="s2">"Au revoir"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Use dot syntax for translation id</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Greeting</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"welcome.greeting"</span><span class="p">&gt;</span>Hello<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"welcome.farewell"</span><span class="p">&gt;</span>Goodbye<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>Both types of translation data formats support nesting to help with organization of translations, and avoid naming collisions with translation ids.</p>
+<h2 id='custom-format'>Custom format</h2>
+<p>See <a href="/#custom-translation-format">Custom translation format</a> for details.</p>
+<h1 id='guides'>Guides</h1><h2 id='include-inline-default-translations'>Include inline default translations</h2>
+<blockquote>
+<p>Pass default language translations to <code>Translate</code></p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Greeting</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"greeting"</span><span class="p">&gt;</span>Hello<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"farewell"</span><span class="p">&gt;</span>Bye Bye<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"congrats"</span> <span class="na">options=</span><span class="si">{</span><span class="p">{</span> <span class="na">ignoreTranslateChildren</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span><span class="si">}</span><span class="p">&gt;</span>
+      Way to go!
+    <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Translations <code>before</code> and <code>after</code> Translate</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// translation data before defaults are provided</span>
+<span class="p">{</span>
+  <span class="nl">greeting</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="s1">'Bonjour'</span><span class="p">],</span>
+  <span class="nx">farewell</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Goodbye'</span><span class="p">,</span> <span class="s1">'Au Revoir'</span><span class="p">],</span>
+  <span class="nx">congrats</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Congratulations'</span><span class="p">,</span> <span class="s1">'Toutes nos félicitations'</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// translation data after defaults are passed with Translate</span>
+<span class="p">{</span>
+  <span class="nl">greeting</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'Bonjour'</span><span class="p">],</span>
+  <span class="nx">farewell</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Bye Bye'</span><span class="p">,</span> <span class="s1">'Au Revoir'</span><span class="p">],</span>
+  <span class="nx">congrats</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Congratulations'</span><span class="p">,</span> <span class="s1">'Toutes nos félicitations'</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<p>With <a href="/#translate-2">Translate</a> you can include an inline translation for the defualt langauge by passing it
+as <code>children</code> to the component.</p>
+
+<p>When you pass an inline translation to <code>Translate</code> it will be added to your translation data under the corresponding <code>id</code>
+for the default language. If the default langauge&#39;s translation for that <code>id</code> already exists it will be overriden
+with the inline translation.</p>
+
+<p>If you don&#39;t want existing translation data overriden you can set <code>Translate</code>&#39;s <a href="/#translate-2">ignoreTranslateChildren</a> option to <code>true</code>.
+When set to <code>true</code> the existing translation data will always be rendered, and the inline translation will be ignored.</p>
+<h2 id='dynamic-translations'>Dynamic translations</h2>
+<blockquote>
+<p>Translations with placeholders</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">greeting</span><span class="p">:</span> <span class="s2">"Hello, ${name}!"</span><span class="p">,</span>
+  <span class="nx">today</span><span class="p">:</span> <span class="s2">"Today is ${date}"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Using data attribute</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Greeting</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"greeting"</span> <span class="na">data=</span><span class="si">{</span><span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Testy McTest'</span><span class="p">}</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="err">'</span><span class="nx">Hello</span> <span class="nx">$</span><span class="p">{</span> <span class="nx">name</span> <span class="p">}</span><span class="err">'</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Using render props</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Today</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="p">({</span> <span class="nx">translate</span> <span class="p">})</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'today'</span><span class="p">,</span> <span class="p">{</span> <span class="na">date</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="p">})</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>You can add dynamic content to your translatins by inserting placeholders with the following format <code>${placeholder}</code>.
+Then using the <a href="/#translate-2">Translate</a> component you will be able to pass in data that will inserted for each corresponding placeholder.</p>
+<h2 id='html-translations'>HTML translations</h2>
+<blockquote>
+<p>Translation with HTML</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"google-link"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"&lt;a href='https://www.google.en/'&gt;Google&lt;/a&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"&lt;a href='https://www.google.fr/'&gt;Google&lt;/a&gt;"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Override renderInnerHtml option for translation</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Link</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"google-link"</span> <span class="na">options=</span><span class="si">{</span><span class="p">{</span> <span class="na">renderInnerHtml</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}</span><span class="si">}</span> <span class="p">/&gt;</span>
+<span class="p">);</span>
+
+<span class="c1">// with render props</span>
+<span class="kr">const</span> <span class="nx">Link</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="p">({</span> <span class="nx">translate</span> <span class="p">})</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'google-link'</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="na">renderInnerHtml</span><span class="p">:</span> <span class="kc">false</span> <span class="p">})</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>As long as you&#39;ve set the <a href="/#initialize">initialize</a> option <a href="/#initialize">renderInnerHtml</a> to <code>true</code> any HTML markup in your translations
+will be rendered when using <a href="/#translate-2">Translate</a>.</p>
+
+<p>In addition to setting <code>renderInnerHtml</code> globally you can also override it for a specific translation&#39;s by passing an
+<a href="/#translate-2">options</a> prop to <code>Translate</code>.</p>
+<h2 id='handle-missing-translations'>Handle missing translations</h2>
+<blockquote>
+<p>Return translation for default language in place of missing translation</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">onMissingTranslation</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">defaultTranslation</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">defaultTranslation</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Missing</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+      <span class="na">languages</span><span class="p">:</span> <span class="p">[</span><span class="s1">'en'</span><span class="p">,</span> <span class="s1">'fr'</span><span class="p">],</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span> <span class="nx">onMissingTranslation</span> <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Missing</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>Override onMissingTranslation for specific translation</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">onMissingTranslation</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">translationId</span><span class="p">,</span> <span class="nx">languageCode</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s2">`Nada for </span><span class="p">${</span> <span class="nx">translationId</span> <span class="p">}</span><span class="s2"> - </span><span class="p">${</span> <span class="nx">languageCode</span> <span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">Missing</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"missing"</span> <span class="na">options=</span><span class="si">{</span><span class="p">{</span> <span class="nx">onMissingTranslation</span> <span class="p">}</span><span class="si">}</span> <span class="p">/&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>By default when a translation isn&#39;t found the following message will be rendered in it&#39;s place:</p>
+
+<p><strong><code>Missing translationId: ${ translationId } for language: ${ languageCode }</code></strong></p>
+
+<p><br/></p>
+
+<p><strong>Adding custom missing translation logic</strong></p>
+
+<p>This can be overidden at a global level by providing the <a href="/#initialize">onMissingTranslation</a> option to <a href="/#initialize">initialize</a>.
+You&#39;ll need to pass <code>onMissingTranslation</code> a function for it&#39;s value, and that function should return
+a string that will be rendered in the missing translation&#39;s place.</p>
+
+<p>The <code>onMissingTranslation</code> function will receive a single argument - an object with the following properties:</p>
+
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>translationId</td>
+<td>string</td>
+<td>The id for the missing translation</td>
+</tr>
+<tr>
+<td>languageCode</td>
+<td>string</td>
+<td>The languageCode for the language being retrieved</td>
+</tr>
+<tr>
+<td>defaultTranslation</td>
+<td>string</td>
+<td>The translation for the default language - <em>if defined</em></td>
+</tr>
+</tbody></table>
+<h2 id='retrieving-multiple-translations'>Retrieving multiple translations</h2>
+<blockquote>
+<p>Given following translations</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">greeting</span><span class="p">:</span> <span class="s2">"Hello, ${name}!"</span><span class="p">,</span>
+  <span class="nx">today</span><span class="p">:</span> <span class="s2">"Today is ${date}"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Use the spread operator to pass the translations as props</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">props</span><span class="p">[</span><span class="s1">'greeting'</span><span class="p">]</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">props</span><span class="p">[</span><span class="s1">'today'</span><span class="p">]</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">Page</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">translate</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="p">({</span> <span class="nx">translate</span> <span class="p">})</span><span class="si">}</span> =<span class="err">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Article</span>
+        <span class="err">{</span> <span class="p">...</span><span class="nt">translate</span><span class="err">(['</span><span class="nt">greeting</span><span class="err">',</span> <span class="err">'</span><span class="nt">today</span><span class="err">'],</span> <span class="err">{</span> <span class="nt">name</span><span class="err">:</span> <span class="err">'</span><span class="nc">Ted</span><span class="err">',</span> <span class="nt">date</span><span class="err">:</span> <span class="nc">Date</span><span class="p">.</span><span class="nt">now</span><span class="err">()</span> <span class="err">})</span> <span class="err">}</span>
+      <span class="p">/&gt;</span>
+    }
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>To retrieve multiple translations using <a href="/#translate-2">Translate</a> pass an array of translation ids instead of a single id. This will return an object with translated strings mapped to translation ids.</p>
+<h2 id='custom-translation-format'>Custom translation format</h2>
+<blockquote>
+<p>Unsupported translation format</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">customTranslation</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">en</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">greeting</span><span class="p">:</span> <span class="s1">'Hello'</span><span class="p">,</span>
+    <span class="na">farewell</span><span class="p">:</span> <span class="s1">'Goodbye'</span>
+  <span class="p">},</span>
+  <span class="na">fr</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">greeting</span><span class="p">:</span> <span class="s1">'Bonjour'</span><span class="p">,</span>
+    <span class="na">farewell</span><span class="p">:</span> <span class="s1">'Au Revoir'</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre>
+<blockquote>
+<p>Transformation function must return data in <a href="#">all languages format</a></p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">greeting</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Hello'</span><span class="p">,</span> <span class="s1">'Bonjour'</span><span class="p">],</span>
+  <span class="nx">farewell</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Goodbye'</span><span class="p">,</span> <span class="s1">'Au Revoir'</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Pass the transformFunction to addTranslation:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">transformFunction</span> <span class="o">=</span> <span class="p">(</span><span class="nx">translationData</span><span class="p">:</span> <span class="nb">Object</span><span class="p">,</span> <span class="nx">languagesCodes</span><span class="p">:</span> <span class="nx">string</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Your transformation logic goes here...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">CustomStuff</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">addTranslation</span><span class="p">(</span>
+      <span class="nx">customTranslation</span><span class="p">,</span>
+      <span class="p">{</span> <span class="na">translationTransform</span><span class="p">:</span> <span class="nx">transformFunction</span> <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">CustomStuff</span><span class="p">);</span>
+</code></pre>
+<p>Do you have legacy translation data that doesn&#39;t fit one of localize&#39;s <a href="/#formatting-translations">supported formats</a>? In this case you can try <a href="/#addtranslation">addTranslation</a>&#39;s
+<a href="/#addtranslation">translationTransform</a> option, which can be passed when adding translations.</p>
+
+<p>The <code>translationTransform</code> option takes a function that is responsible for transforming your custom translation data into localize&#39;s supported <a href="/#all-langauges-format">all langauges format</a>.</p>
+
+<p>The translation function will be passed the below arguments, and should return data in <code>all languages format</code>:</p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>translationData</td>
+<td>Object</td>
+<td>The custom translation data before transformation</td>
+</tr>
+<tr>
+<td>languagesCodes</td>
+<td>string[]</td>
+<td>An array of languageCodes based on languages passed to initialize</td>
+</tr>
+</tbody></table>
+<h1 id='faq'>FAQ</h1><h2 id='what-if-my-translation-data-isn-39-t-in-the-required-format'>What if my translation data isn&#39;t in the required format?</h2>
+<p>If you don&#39;t have control over the translation data for your application you can use the <a href="/#addtranslation">translationTransform</a> option.
+See <a href="/#custom-translation-format">Custom translation format</a> guide for more details.</p>
+<h2 id='how-do-i-persist-active-language-after-refresh'>How do I persist active language after refresh?</h2>
+<blockquote>
+<p>Persist active language to local storage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Main</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="kr">const</span> <span class="nx">languages</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'en'</span><span class="p">,</span> <span class="s1">'fr'</span><span class="p">,</span> <span class="s1">'es'</span><span class="p">];</span>
+    <span class="kr">const</span> <span class="nx">defaultLanguage</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'languageCode'</span><span class="p">)</span> <span class="o">||</span> <span class="nx">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+      <span class="nx">languages</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span> <span class="nx">defaultLanguage</span> <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentDidUpdate</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">prevLangCode</span> <span class="o">=</span> <span class="nx">prevProps</span><span class="p">.</span><span class="nx">activeLanguage</span> <span class="o">&amp;&amp;</span> <span class="nx">prevProps</span><span class="p">.</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">code</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">curLangCode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">activeLanguage</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">code</span><span class="p">;</span>
+
+    <span class="kr">const</span> <span class="nx">hasLanguageChanged</span> <span class="o">=</span> <span class="nx">prevLangCode</span> <span class="o">!==</span> <span class="nx">curLangCode</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">hasLanguageChanged</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'languageCode'</span><span class="p">,</span> <span class="nx">curLangCode</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// render Main layout component</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
+</code></pre>
+<p>Persisting the user’s active language after a refresh can be done a many ways, and how that is done is really up to you.
+The following is one approach leveraging local storage to store and retrieve the active language.</p>
+<h2 id='how-do-i-handle-currency-date-and-other-localization-transformations'>How do I handle currency, date, and other localization transformations?</h2>
+<blockquote>
+<p>Basic localized number formatter</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">FormatNumber</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">props</span><span class="p">.</span><span class="nx">activeLanguage</span>
+    <span class="p">?</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">).</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span>
+    <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">FormatNumber</span><span class="p">);</span>
+</code></pre>
+<p>This logic was excluded on purpose in order to keep this API focused, and package size small. If you do require localization based formatting you do have the choice of using a third-party library that speciializes in formatting e.g(<a href="https://momentjs.com/">Moment</a> for dates). Or you can even implement this logic yourself...</p>
+<h2 id='how-does-react-localize-differ-from-react-intl'>How does react-localize differ from react-intl?</h2>
+<ul>
+<li><p><a href="https://github.com/yahoo/react-intl">react-intl</a> is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with <code>react-localize</code> you are responsible for those things - see <a href="/#how-do-i-handle-currency-date-and-other-localization-transformations">How do I handle currency, date, and other localization transformations?</a></p></li>
+<li><p><code>react-intl</code> doesn&#39;t work with Redux out of the box, and needs an additional library <a href="https://github.com/ratson/react-intl-redux">react-intl-redux</a> to add support.</p></li>
+<li><p>For further discussion on this topic see <a href="https://github.com/ryandrewjohnson/react-localize/issues/21">original github issue</a>.</p></li>
+</ul>
+<h2 id='can-i-use-older-versions-of-react'>Can I use older versions of React?</h2>
+<p>// TODO: do I need this section</p>
+<h1 id='api-reference'>API Reference</h1><h2 id='localizeprovider'>LocalizeProvider</h2>
+<blockquote>
+<p>Wrap your app with <code>&lt;LocalizeProvider /&gt;</code></p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">render</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-dom'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserRouter</span> <span class="nx">as</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-router-dom'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">LocalizeProvider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Main</span> <span class="nx">from</span> <span class="s1">'./Main'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">LocalizeProvider</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Router</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path=</span><span class="s2">"/"</span> <span class="na">component=</span><span class="si">{</span><span class="nx">Main</span><span class="si">}</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Router</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">LocalizeProvider</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="nx">render</span><span class="p">(&lt;</span><span class="nc">App</span> <span class="p">/&gt;,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'root'</span><span class="p">));</span>
+</code></pre>
+<p>By wrapping your application with <code>&lt;LocalizeProvider /&gt;</code> all component&#39;s in the heirarchy below will have the ability to work with localize.</p>
+<h4 id='properties'>Properties:</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>store</td>
+<td>Redux store</td>
+<td>Optionally pass your store if your app uses Redux.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+<code>LocalizeProvider</code> is a wrapper around React's native <a href="https://reactjs.org/docs/context.html#provider">Context Provider</a>.
+</aside>
+<h2 id='localizecontext'>LocalizeContext</h2>
+<blockquote>
+<p>Usage (use <code>withLocalize</code> instead when possible):</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">LocalizeContext</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">LastResort</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">LocalizeContext</span><span class="p">.</span><span class="nc">Consumer</span><span class="p">&gt;</span>
+    <span class="si">{</span> <span class="nx">context</span> <span class="o">=&gt;</span>
+      <span class="c1">// you will have access to context props here</span>
+    <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">LocalizeContext</span><span class="p">.</span><span class="nc">Consumer</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>It is recommended that you <strong>don&#39;t use</strong> <code>LocalizeContext</code> directly, but instead use the <a href="/#withlocalize">withLocalize</a> higher-order
+component to access <code>LocalizeContext</code>&#39;s props in your component.</p>
+
+<aside class="notice">
+<code>LocalizeContext</code> is was created using <a href="https://reactjs.org/docs/context.html#reactcreatecontext">React.createContext</a> thus it can
+be used like any other context created by React.
+</aside>
+<h3 id='initialize'>initialize</h3>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">globalTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/global.json'</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Main</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+      <span class="na">languages</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'English'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'en'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'French'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'fr'</span> <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">translation</span><span class="p">:</span> <span class="nx">globalTranslations</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">renderInnerHtml</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">defaultLanguage</span><span class="p">:</span> <span class="s1">'fr'</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// render Main layout component</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
+</code></pre>
+<p>You will need to <a href="/#initialize">initialize</a> localize with the supported languages in your translations. Optionally you can
+also provide initial translation data, as well as some additional options.</p>
+<h4 id='properties-2'>Properties:</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>languages</td>
+<td>array</td>
+<td>An array of languages your translations will support.</td>
+</tr>
+<tr>
+<td>translation</td>
+<td>object</td>
+<td>Translation data in <a href="/#all-langauges-format">all languages</a> or <a href="/#single-language-format">single language</a> format.</td>
+</tr>
+<tr>
+<td>options</td>
+<td>object</td>
+<td>See options table below.</td>
+</tr>
+</tbody></table>
+<h4 id='options'>Options:</h4>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
+<td>renderInnerHtml</td>
+<td>boolean</td>
 <td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>Controls whether HTML in your translations will be rendered or returned as a plain string.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>onMissingTranslation</td>
+<td>function</td>
+<td>returns default missing message</td>
+<td>See <a href="/#handle-missing-translations">Handle missing translations</a> for details.</td>
+</tr>
+<tr>
+<td>defaultLanguage</td>
+<td>string</td>
+<td>languages[0]</td>
+<td>The language code for the language you&#39;d like to set as the defualt.</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<h3 id='addtranslation'>addTranslation</h3>
+<blockquote>
+<p>greetings.json (all languages format)</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"greeting"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="s2">"Bonjour"</span><span class="p">],</span>
+  <span class="s2">"farewell"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Goodbye"</span><span class="p">,</span> <span class="s2">"Au revoir"</span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Usage:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">greetings</span> <span class="nx">from</span> <span class="s1">'./translations/greetings.json'</span><span class="p">;</span>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<span class="kr">class</span> <span class="nx">Greetings</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">addTranslation</span><span class="p">(</span><span class="nx">greetings</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Movies</span><span class="p">);</span>
+</code></pre>
+<p>The <code>addTranslation</code> method is used to add translations data in the <a href="/#all-langauges-format">all languages format</a> to localize.
+Once you&#39;ve translation data has been added you will be able to access it using <a href="/#translate-2">Translate</a>.</p>
+<h4 id='parameters'>Parameters:</h4>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>data</td>
+<td>object</td>
+<td>Translation data in <a href="/#all-langauges-format">all languages format</a>.</td>
+</tr>
+<tr>
+<td>options</td>
+<td>object</td>
+<td>Optional configuration for translation data.</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h4 id='options-2'>Options:</h4>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>translationTransform</td>
+<td>function</td>
+<td>A transform function for dealing with custom translation data. See <a href="/#custom-format">Custom translation format</a>.</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+<h3 id='addtranslationforlanguage'>addTranslationForLanguage</h3>
+<blockquote>
+<p>en.greetings.json (single language format)</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="s2">"greeting"</span><span class="p">:</span> <span class="s2">"Hello"</span><span class="p">,</span>
+  <span class="s2">"farewell"</span><span class="p">:</span> <span class="s2">"Goodbye"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">greetings</span> <span class="nx">from</span> <span class="s1">'./translations/greetings.json'</span><span class="p">;</span>
 
-<p>The Kittn API uses the following error codes:</p>
+<span class="kr">class</span> <span class="nx">Greetings</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
 
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">addTranslationForLanguage</span><span class="p">(</span><span class="nx">greetings</span><span class="p">,</span> <span class="s1">'en'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Movies</span><span class="p">);</span>
+</code></pre>
+<p>The <code>addTranslationForLanguage</code> method is used to add translations data in the <a href="/#single-language-format">single language format</a> to localize.
+Once you&#39;ve translation data has been added you will be able to access it using <a href="/#translate-2">Translate</a>.</p>
+<h4 id='parameters-2'>Parameters:</h4>
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request sucks.</td>
+<td>data</td>
+<td>object</td>
+<td>Translation data in <a href="/#single-language-format">single language format</a>.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>language</td>
+<td>string</td>
+<td>The language code this translation data belongs to.</td>
+</tr>
+</tbody></table>
+<h3 id='setactivelanguage'>setActiveLanguage</h3>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">LanguageToggle</span> <span class="o">=</span> <span class="p">({</span><span class="nx">languages</span><span class="p">,</span> <span class="nx">activeLanguage</span><span class="p">,</span> <span class="nx">setActiveLanguage</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">className=</span><span class="s2">"selector"</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">languages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">lang</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key=</span><span class="si">{</span><span class="nx">lang</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setActiveLanguage</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="nx">lang</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">)</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">LanguageToggle</span><span class="p">);</span>
+</code></pre>
+<p>The <code>setActiveLanguage</code> method is used to change localize&#39;s active language.</p>
+<h4 id='parameters-3'>Parameters:</h4>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>language</td>
+<td>string</td>
+<td>The language code you want to set as active.</td>
+</tr>
+</tbody></table>
+<h3 id='translate'>translate</h3>
+<blockquote>
+<p>Access translate function:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Page</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">translate</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'heading'</span><span class="p">)</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="c1">// Instead of pulling translation based on activeLanguage,</span>
+      <span class="c1">// specify language using defaultLanguage option</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'heading'</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="na">defaultLanguage</span><span class="p">:</span> <span class="s1">'fr'</span> <span class="p">})</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+      <span class="c1">// override renderHtml option for this translation</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'article.code'</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span> <span class="na">renderInnerHtml</span><span class="p">:</span> <span class="kc">false</span> <span class="p">})</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+      <span class="c1">// pass multiple translations</span>
+      <span class="p">&lt;</span><span class="nc">Article</span>
+        <span class="err">{</span><span class="p">...</span><span class="nt">translate</span><span class="err">(['</span><span class="nt">article</span><span class="p">.</span><span class="nt">title</span><span class="err">',</span> <span class="err">'</span><span class="nt">article</span><span class="p">.</span><span class="nt">author</span><span class="err">'],</span> <span class="err">{</span> <span class="nt">name</span><span class="err">:</span> <span class="err">'</span><span class="nc">Ted</span><span class="err">'</span> <span class="err">})</span> <span class="err">}</span>
+      <span class="p">/&gt;</span>
+    <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>The translate function will return single, or multiple translations depending on the arguments passed.
+See <a href="/#retrieving-multiple-translations">retrieving multiple translations</a> for more detail.</p>
+<h4 id='parameters-4'>Parameters:</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Pass a single id or multiple ids for the translation you want to insert.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>data</td>
+<td>object</td>
+<td>Optional data for variable replacements in <a href="/#dynamic-translations">dynamic translations</a>.</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>options</td>
+<td>object</td>
+<td>See options table below.</td>
+</tr>
+</tbody></table>
+<h4 id='options-3'>Options:</h4>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>language</td>
+<td>string</td>
+<td>Optionally pass a language code to force <code>Translate</code> to render a specific language.</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>renderInnerHtml</td>
+<td>boolean</td>
+<td>Override initialize <a href="/#initialize">renderInnerHtml</a> option for translation.</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+<td>onMissingTranslation</td>
+<td>function</td>
+<td>Override initialize <a href="/#initialize">onMissingTranslation</a> option for translation.</td>
+</tr>
+</tbody></table>
+<h3 id='languages'>languages</h3>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Languages</span> <span class="o">=</span> <span class="p">({</span><span class="nx">languages</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">languages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">language</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">language</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span> - <span class="si">{</span><span class="nx">language</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">)</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">ActiveLanguage</span><span class="p">);</span>
+</code></pre>
+<p>An array of languages your translations will support. These are the same languages you passed to <a href="/#initialize">initialize</a>.</p>
+<h3 id='activelanguage'>activeLanguage</h3>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">ActiveLanguage</span> <span class="o">=</span> <span class="p">({</span><span class="nx">activeLanguage</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>code: <span class="si">{</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>name: <span class="si">{</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">ActiveLanguage</span><span class="p">);</span>
+</code></pre>
+<p>The current active language in localize.</p>
+<h4 id='language-format'>language format:</h4>
+<p><strong><code>{ code: &#39;en&#39;, name: &#39;English&#39;, active: true }</code></strong></p>
+<h3 id='defaultlanguage'>defaultLanguage</h3>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">DefaultLanguage</span> <span class="o">=</span> <span class="p">({</span><span class="nx">defaultLanguage</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>The default language code is: <span class="si">{</span><span class="nx">defaultLanguage</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">DefaultLanguage</span><span class="p">);</span>
+</code></pre>
+<p>The default language code in localize. The default language was set when you called
+localize <a href="/#initialize">initialize</a>.</p>
+
+<aside class="notice">
+The default langauge is the first language by default
+unless your set a <code>defaultLanguage</code> option with <code>initialize</code>.
+</aside>
+<h2 id='withlocalize'>withLocalize</h2>
+<blockquote>
+<p>Usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">LanguageToggle</span> <span class="o">=</span> <span class="p">({</span><span class="nx">languages</span><span class="p">,</span> <span class="nx">activeLanguage</span><span class="p">,</span> <span class="nx">setActiveLanguage</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">languages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">language</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key=</span><span class="si">{</span><span class="nx">language</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setActiveLanguage</span><span class="p">(</span><span class="nx">language</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span><span class="si">}</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="nx">language</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span>
+        <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">)</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">LanguageToggle</span><span class="p">);</span>
+</code></pre>
+<p>By wrapping your component with the <code>withLocalize</code> higher-order component all props from
+<a href="/#localizecontext">LocalizeContext</a> will be added as props to your wrapped component.</p>
+<h2 id='translate-2'>Translate</h2>
+<blockquote>
+<p>Given following translations</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">greeting</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="s1">'Bonjour'</span><span class="p">],</span>
+  <span class="nx">farewell</span><span class="p">:</span> <span class="p">[</span><span class="s1">'goodbye'</span><span class="p">,</span> <span class="s1">'Au revoir'</span><span class="p">],</span>
+  <span class="nx">food</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="s1">'&lt;ul&gt;&lt;li&gt;Lait&lt;/li&gt;&lt;li&gt;biscuits&lt;/li&gt;&lt;/ul&gt;'</span><span class="p">],</span>
+  <span class="nx">date</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="s1">'La date d\'aujourd\'hui est ${date}'</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Add translations with <code>&lt;Translate/&gt;</code>:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">Welcome</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="cm">/*
+      'Hello' would be inserted into translation data under the
+      default language for translation id 'greeting'.
+    */</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"greeting"</span><span class="p">&gt;</span>Hello<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+
+    <span class="si">{</span><span class="cm">/*
+      Override 'goodbye' with 'Bye Bye!' in translation data under the
+      default language for translation id 'farewell'.
+    */</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"farewell"</span><span class="p">&gt;</span>Bye Bye!<span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+
+    <span class="si">{</span><span class="cm">/*
+      If you do self-closing with no default translations ensure you have
+      a translation for the default langauge in your data.
+    */</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"farewell"</span> <span class="p">/&gt;</span>
+
+    <span class="si">{</span><span class="cm">/*
+      Include HTML markup as children, but ensure you include
+      the same markup in your translation data for other languages.
+    */</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"food"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Milk<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Cookies<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+
+    <span class="si">{</span><span class="cm">/*
+      Insert translations with placeholder's for dynamic data
+      and pass data in using data prop.
+    */</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"date"</span> <span class="na">data=</span><span class="si">{</span><span class="p">{</span><span class="na">date</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()}</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="s1">'Today\'</span><span class="nx">s</span> <span class="nx">date</span> <span class="nx">is</span> <span class="nx">$</span><span class="p">{</span><span class="nx">date</span><span class="p">}</span><span class="err">'</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+
+    <span class="si">{</span><span class="cm">/*
+      Override initialize options using the options prop.
+      Overriding renderInnerHtml to false to avoid rendering HTML markup.
+    */</span><span class="si">}</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"food"</span> <span class="na">options=</span><span class="si">{</span><span class="p">{</span><span class="na">renderInnerHtml</span><span class="p">:</span> <span class="kc">false</span><span class="p">}</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Milk<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Cookies<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>The <code>&lt;Translate /&gt;</code> component is how you access your translations from your components.</p>
+<h5 id='translate-props'>Translate Props:</h5>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>The id for the translation you want to insert.</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
+<td>data</td>
+<td>object</td>
+<td>Optional data for variable replacements in <a href="/#dynamic-translations">dynamic translations</a>.</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>options</td>
+<td>object</td>
+<td>See options table below.</td>
+</tr>
+</tbody></table>
+<h4 id='options-4'>Options:</h4>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>language</td>
+<td>string</td>
+<td>Optionally pass a language code to force <code>Translate</code> to render a specific language.</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>renderInnerHtml</td>
+<td>boolean</td>
+<td>Override initialize <a href="/#initialize">renderInnerHtml</a> option for translation.</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+<td>onMissingTranslation</td>
+<td>function</td>
+<td>Override initialize <a href="/#initialize">onMissingTranslation</a> option for translation.</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>ignoreTranslateChildren</td>
+<td>boolean</td>
+<td>If <code>true</code> default translations passed as <code>children</code> to <code>Translate</code> will be ignored, and not automatically added to your translation data.</td>
+</tr>
+</tbody></table>
+<h3 id='render-props-api'>Render props API:</h3>
+<blockquote>
+<p>Render props usage:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">LanguageInfo</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="p">({</span><span class="nx">translate</span><span class="p">,</span> <span class="nx">activeLanguage</span><span class="p">,</span> <span class="nx">languages</span><span class="p">})</span> <span class="o">=&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">translate</span><span class="p">(</span><span class="s1">'label-active'</span><span class="p">)</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span> - <span class="si">{</span><span class="nx">activeLanguage</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">translate</span><span class="p">(</span><span class="s1">'label-languages'</span><span class="p">)</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+          <span class="si">{</span><span class="nx">languages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">language</span> <span class="o">=&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">language</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span> - <span class="si">{</span><span class="nx">language</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">)</span><span class="si">}</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>You can also pass Translate a function as it&#39;s child that returns the elements you want to render. This function is commonly referred to as a <a href="https://reactjs.org/docs/render-props.html">render prop function</a>, and is passed a single object with the following props:</p>
+<h4 id='properties-3'>Properties:</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>translate</td>
+<td>function</td>
+<td>See translate function below.</td>
+</tr>
+<tr>
+<td>activeLanguage</td>
+<td>object</td>
+<td>The active language object.</td>
+</tr>
+<tr>
+<td>languages</td>
+<td>array</td>
+<td>An array of languages your translations will support.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
-          </div>
       </div>
     </div>
   </body>
