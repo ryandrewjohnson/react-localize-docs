@@ -1,11 +1,10 @@
 ---
-title: API Reference
+title: react-localize documentation
 
 language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='#'>Project on Github</a>
 
 # includes:
 #   - errors
@@ -29,7 +28,7 @@ TODO: Intro text can go here...
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { LocalizeProvider } from 'react-localize-redux';
+import { LocalizeProvider } from 'react-localize';
 import Main from './Main';
 
 const App = props => (
@@ -58,7 +57,7 @@ is pass the redux <code>store</code> to <code>LocalizeProvider</code>.
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 import globalTranslations from './translations/global.json';
 
 class Main extends React.Component {
@@ -83,17 +82,17 @@ class Main extends React.Component {
 export default withLocalize(Main);
 ```
 
-Before accessing any trnaslations in your app you will need to [initialize]() localize with your settings.
+Before accessing any trnaslations in your app you will need to [initialize](/#initialize) localize with your settings.
 The settings object requires `lanuages`, while `translation`, and `options` are optional.
 
 Property | Type | Description
 --------- | ------- | -----------
 languages | array | An array of languages your translations will support.
-translation | object | Translation data in [all languages]() or [single language]() format.
-options | object | See [initialize options]().
+translation | object | Translation data in [all languages](/#all-langauges-format) or [single language](/#single-language-format) format.
+options | object | See [initialize options](/#initialize).
 
 <aside class="notice">
-For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
 </aside>
 
 <aside class="notice">
@@ -112,7 +111,7 @@ Ensure you <code>initialize</code> localize before attempting to render any comp
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 import movieTranslations from './translations/movies.json';
 
 class Movies extends React.Component {
@@ -139,15 +138,15 @@ import frenchMovieTranslations from './translations/fr.movies.json';
 this.props.addTranslationForLanguage(frenchMovieTranslations, 'fr');
 ```
 
-Translation data comes in two different flavours - the [all languages]() and [single language]() format.
+Translation data comes in two different flavours - the [all languages](/#all-langauges-format) and [single language](/#single-language-format) format.
 
-* Use [addTranslation]() method  to add data in `all languges` format.
-* Use [addTranslationForLanguage]() method to add data in `single languge` format.
+* Use [addTranslation](/#addtranslation) method  to add data in `all languges` format.
+* Use [addTranslationForLanguage](/#addtranslationforlanguage) method to add data in `single languge` format.
 
-As soon as you add the translation data to localize it can be rendered in your components using [Translate]().
+As soon as you add the translation data to localize it can be rendered in your components using [Translate](/#translate-2).
 
 <aside class="notice">
-For your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+For your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
 </aside>
 
 
@@ -164,7 +163,7 @@ For your component to have access to the <code>addTranslation</code> and <code>a
 }
 ```
 
-Once you've added your translation data you'll need a way to get it into your components. That is where the [Translate]() component comes in, and it can be used in a variety of ways. The `id` prop passed to `Translate` should match the id of the translation data you want to insert
+Once you've added your translation data you'll need a way to get it into your components. That is where the [Translate](/#translate-2) component comes in, and it can be used in a variety of ways. The `id` prop passed to `Translate` should match the id of the translation data you want to insert
 
 
 ### Translate with default translations:
@@ -173,7 +172,7 @@ Once you've added your translation data you'll need a way to get it into your co
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Movies = props => (
   <h1><Translate id="movie.title">Jurassic Park</Translate></h1>
@@ -210,7 +209,7 @@ const Movies = props => (
 );
 ```
 
-You can also pass Translate a function as it's child that returns the elements you want to render. This function is commonly referred to as a [render prop function](https://reactjs.org/docs/render-props.html), and is passed a single object with props [translate](), [activeLanguage](), and [languages]().
+You can also pass Translate a function as it's child that returns the elements you want to render. This function is commonly referred to as a [render prop function](https://reactjs.org/docs/render-props.html), and is passed a single object with props [Translate](/#translate-2), [activeLanguage](/#activelanguage), and [languages](/#languages).
 
 
 
@@ -221,7 +220,7 @@ You can also pass Translate a function as it's child that returns the elements y
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
   <ul className="selector">
@@ -236,10 +235,10 @@ const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
 export default withLocalize(LanguageToggle);
 ```
 
-Use the [setActiveLanguage]() method to change localize's active language.
+Use the [setActiveLanguage](/#setactivelanguage) method to change localize's active language.
 
 <aside class="notice">
-For your component to have access to the <code>setActiveLanguage</code> prop you'll need to use the <code><a href="#">withLocalize</a></code> higher-order component.
+For your component to have access to the <code>setActiveLanguage</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
 </aside>
 
 
@@ -272,10 +271,10 @@ your data it will need to be in one of the following formats.
 Translation data will be an object where the property name is your translation id, and the value is an array of translations. The translation id must be unique across **all** your translations, and the value is an array that enforces the following rules:
 
 * Includes a translation for each language your app supports. TODO: exception being the default langauge
-* The order of the translation strings in the array matters! The order **MUST** follow the order of the languages array passed to [initialize]().
+* The order of the translation strings in the array matters! The order **MUST** follow the order of the languages array passed to [initialize](/#initialize).
 
 <aside class="notice">
-The <a href="#"><code>addTranslation</code></a> action requires translations in this format.
+The <a href="#addtranslation"><code>addTranslation</code></a> action requires translations in this format.
 </aside>
 
 
@@ -305,7 +304,7 @@ Translation data will be an object where the property name is your translation i
 
 
 <aside class="notice">
-The <a href="#"><code>addTranslationForLanguage</code></a> action requires translations in this format.
+The <a href="#addtranslationforlanguage"><code>addTranslationForLanguage</code></a> action requires translations in this format.
 </aside>
 
 
@@ -345,7 +344,7 @@ The <a href="#"><code>addTranslationForLanguage</code></a> action requires trans
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Greeting = props => (
   <div>
@@ -360,7 +359,7 @@ Both types of translation data formats support nesting to help with organization
 
 ## Custom format
 
-See [Custom translation format]() for details.
+See [Custom translation format](/#custom-translation-format) for details.
 
 
 
@@ -377,7 +376,7 @@ See [Custom translation format]() for details.
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Greeting = props => (
   <div>
@@ -408,14 +407,14 @@ const Greeting = props => (
 }
 ```
 
-With [Translate]() you can include an inline translation for the defualt langauge by passing it
+With [Translate](/#translate-2) you can include an inline translation for the defualt langauge by passing it
 as `children` to the component.
 
 When you pass an inline translation to `Translate` it will be added to your translation data under the corresponding `id`
 for the default language. If the default langauge's translation for that `id` already exists it will be overriden
 with the inline translation.
 
-If you don't want existing translation data overriden you can set `Translate`'s [ignoreTranslateChildren]() option to `true`.
+If you don't want existing translation data overriden you can set `Translate`'s [ignoreTranslateChildren](/#translate-2) option to `true`.
 When set to `true` the existing translation data will always be rendered, and the inline translation will be ignored.
 
 
@@ -434,7 +433,7 @@ When set to `true` the existing translation data will always be rendered, and th
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Greeting = props => (
   <Translate id="greeting" data={{name: 'Testy McTest'}}>
@@ -447,7 +446,7 @@ const Greeting = props => (
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Today = props => (
   <Translate>
@@ -459,7 +458,7 @@ const Today = props => (
 ```
 
 You can add dynamic content to your translatins by inserting placeholders with the following format `${placeholder}`.
-Then using the [Translate]() component you will be able to pass in data that will inserted for each corresponding placeholder.
+Then using the [Translate](/#translate-2) component you will be able to pass in data that will inserted for each corresponding placeholder.
 
 
 ## HTML translations
@@ -479,7 +478,7 @@ Then using the [Translate]() component you will be able to pass in data that wil
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Link = props => (
   <Translate id="google-link" options={{ renderInnerHtml: false }} />
@@ -495,11 +494,11 @@ const Link = props => (
 );
 ```
 
-As long as you've set the [initialize]() option [renderInnerHtml]() to `true` any HTML markup in your translations
-will be rendered when using [Translate]().
+As long as you've set the [initialize](/#initialize) option [renderInnerHtml](/#initialize) to `true` any HTML markup in your translations
+will be rendered when using [Translate](/#translate-2).
 
 In addition to setting `renderInnerHtml` globally you can also override it for a specific translation's by passing an
-[options]() prop to `Translate`.
+[options](/#translate-2) prop to `Translate`.
 
 
 ## Handle missing translations
@@ -508,7 +507,7 @@ In addition to setting `renderInnerHtml` globally you can also override it for a
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const onMissingTranslation = ({ defaultTranslation }) => defaultTranslation;
 
@@ -531,7 +530,7 @@ export default withLocalize(Missing);
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const onMissingTranslation = ({ translationId, languageCode }) => {
   return `Nada for ${ translationId } - ${ languageCode }`;
@@ -550,7 +549,7 @@ By default when a translation isn't found the following message will be rendered
 
 **Adding custom missing translation logic**
 
-This can be overidden at a global level by providing the [onMissingTranslation]() option to [initialize]().
+This can be overidden at a global level by providing the [onMissingTranslation](/#initialize) option to [initialize](/#initialize).
 You'll need to pass `onMissingTranslation` a function for it's value, and that function should return
 a string that will be rendered in the missing translation's place.
 
@@ -577,7 +576,7 @@ defaultTranslation | string | The translation for the default language - *if def
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Article = props => (
   <div>
@@ -597,7 +596,7 @@ const Page = ({ translate }) => (
 );
 ```
 
-To retrieve multiple translations using [translate]() pass an array of translation ids instead of a single id. This will return an object with translated strings mapped to translation ids.
+To retrieve multiple translations using [Translate](/#translate-2) pass an array of translation ids instead of a single id. This will return an object with translated strings mapped to translation ids.
 
 
 ## Custom translation format
@@ -630,7 +629,7 @@ const customTranslation = {
 
 ```javascript
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const transformFunction = (translationData: Object, languagesCodes: string[]) => {
   // Your transformation logic goes here...
@@ -651,10 +650,10 @@ class CustomStuff extends React.Component {
 export default withLocalize(CustomStuff);
 ```
 
-Do you have legacy translation data that doesn't fit one of localize's [supported formats]()? In this case you can try [addTranslation]()'s
-[translationTransform]() option, which can be passed when adding translations.
+Do you have legacy translation data that doesn't fit one of localize's [supported formats](/#formatting-translations)? In this case you can try [addTranslation](/#addtranslation)'s
+[translationTransform](/#addtranslation) option, which can be passed when adding translations.
 
-The `translationTransform` option takes a function that is responsible for transforming your custom translation data into localize's supported [all langauges format]().
+The `translationTransform` option takes a function that is responsible for transforming your custom translation data into localize's supported [all langauges format](/#all-langauges-format).
 
 The translation function will be passed the below arguments, and should return data in `all languages format`:
 
@@ -671,8 +670,8 @@ languagesCodes | string[] | An array of languageCodes based on languages passed 
 
 ## What if my translation data isn't in the required format?
 
-If you don't have control over the translation data for your application you can use the [translationTransform]() option.
-See [Custom translation format]() guide for more details.
+If you don't have control over the translation data for your application you can use the [translationTransform](/#addtranslation) option.
+See [Custom translation format](/#custom-translation-format) guide for more details.
 
 
 ## How do I persist active language after refresh?
@@ -681,7 +680,7 @@ See [Custom translation format]() guide for more details.
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 class Main extends React.Component {
 
@@ -726,7 +725,7 @@ The following is one approach leveraging local storage to store and retrieve the
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const FormatNumber = props => {
   return props.activeLanguage
@@ -742,11 +741,11 @@ This logic was excluded on purpose in order to keep this API focused, and packag
 
 ## How does react-localize differ from react-intl?
 
-* [react-intl](https://github.com/yahoo/react-intl) is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with `react-localize` you are responsible for those things - see [How do I handle currency, date, and other localization transformations?]()
+* [react-intl](https://github.com/yahoo/react-intl) is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with `react-localize` you are responsible for those things - see [How do I handle currency, date, and other localization transformations?](/#how-do-i-handle-currency-date-and-other-localization-transformations)
 
 * `react-intl` doesn't work with Redux out of the box, and needs an additional library [react-intl-redux](https://github.com/ratson/react-intl-redux) to add support.
 
-* For further discussion on this topic see [original github issue](https://github.com/ryandrewjohnson/react-localize-redux/issues/21).
+* For further discussion on this topic see [original github issue](https://github.com/ryandrewjohnson/react-localize/issues/21).
 
 
 ## Can I use older versions of React?
@@ -767,7 +766,7 @@ This logic was excluded on purpose in order to keep this API focused, and packag
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { LocalizeProvider } from 'react-localize-redux';
+import { LocalizeProvider } from 'react-localize';
 import Main from './Main';
 
 const App = props => (
@@ -803,7 +802,7 @@ store | Redux store | Optionally pass your store if your app uses Redux.
 
 ```jsx
 import React from 'react';
-import { LocalizeContext } from 'react-localize-redux';
+import { LocalizeContext } from 'react-localize';
 
 const LastResort = props => (
   <LocalizeContext.Consumer>
@@ -814,7 +813,7 @@ const LastResort = props => (
 );
 ```
 
-It is recommended that you **don't use** `LocalizeContext` directly, but instead use the [withLocalize]() higher-order
+It is recommended that you **don't use** `LocalizeContext` directly, but instead use the [withLocalize](/#withlocalize) higher-order
 component to access `LocalizeContext`'s props in your component.
 
 <aside class="notice">
@@ -829,7 +828,7 @@ be used like any other context created by React.
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 import globalTranslations from './translations/global.json';
 
 class Main extends React.Component {
@@ -858,7 +857,7 @@ class Main extends React.Component {
 export default withLocalize(Main);
 ```
 
-You will need to [initialize]() localize with the supported languages in your translations. Optionally you can
+You will need to [initialize](/#initialize) localize with the supported languages in your translations. Optionally you can
 also provide initial translation data, as well as some additional options.
 
 #### Properties:
@@ -866,7 +865,7 @@ also provide initial translation data, as well as some additional options.
 Property | Type | Description
 --------- | ------- | -----------
 languages | array | An array of languages your translations will support.
-translation | object | Translation data in [all languages]() or [single language]() format.
+translation | object | Translation data in [all languages](/#all-langauges-format) or [single language](/#single-language-format) format.
 options | object | See options table below.
 
 #### Options:
@@ -874,7 +873,7 @@ options | object | See options table below.
 Name | Type | Default | Description
 --------- | ------- | ----------- | -----------
 renderInnerHtml | boolean | false | Controls whether HTML in your translations will be rendered or returned as a plain string.
-onMissingTranslation | function | returns default missing message | See [Handle missing translations]() for details.
+onMissingTranslation | function | returns default missing message | See [Handle missing translations](/#handle-missing-translations) for details.
 defaultLanguage | string | languages[0] | The language code for the language you'd like to set as the defualt.
 
 <aside class="notice">
@@ -896,7 +895,7 @@ Ensure you <code>initialize</code> localize before attempting to render any comp
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 import greetings from './translations/greetings.json';
 
 class Greetings extends React.Component {
@@ -910,14 +909,14 @@ class Greetings extends React.Component {
 export default withLocalize(Movies);
 ```
 
-The `addTranslation` method is used to add translations data in the [all languages format]() to localize.
-Once you've translation data has been added you will be able to access it using [Translate]().
+The `addTranslation` method is used to add translations data in the [all languages format](/#all-langauges-format) to localize.
+Once you've translation data has been added you will be able to access it using [Translate](/#translate-2).
 
 #### Parameters:
 
 Name | Type | Description
 --------- | ------- | -----------
-data | object | Translation data in [all languages format]().
+data | object | Translation data in [all languages format](/#all-langauges-format).
 options | object | Optional configuration for translation data.
 
 
@@ -925,7 +924,7 @@ options | object | Optional configuration for translation data.
 
 Name | Type | Description
 --------- | ------- | -----------
-translationTransform | function | A transform function for dealing with custom translation data. See [Custom translation format]().
+translationTransform | function | A transform function for dealing with custom translation data. See [Custom translation format](/#custom-format).
 
 
 ### addTranslationForLanguage
@@ -942,7 +941,7 @@ translationTransform | function | A transform function for dealing with custom t
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 import greetings from './translations/greetings.json';
 
 class Greetings extends React.Component {
@@ -956,14 +955,14 @@ class Greetings extends React.Component {
 export default withLocalize(Movies);
 ```
 
-The `addTranslationForLanguage` method is used to add translations data in the [single language format]() to localize.
-Once you've translation data has been added you will be able to access it using [Translate]().
+The `addTranslationForLanguage` method is used to add translations data in the [single language format](/#single-language-format) to localize.
+Once you've translation data has been added you will be able to access it using [Translate](/#translate-2).
 
 #### Parameters:
 
 Name | Type | Description
 --------- | ------- | -----------
-data | object | Translation data in [single language format]().
+data | object | Translation data in [single language format](/#single-language-format).
 language | string | The language code this translation data belongs to.
 
 
@@ -973,7 +972,7 @@ language | string | The language code this translation data belongs to.
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
   <ul className="selector">
@@ -1001,22 +1000,41 @@ language | string | The language code you want to set as active.
 
 ### translate
 
-> Usage:
+> Access translate function:
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { Translate } from 'react-localize';
+
+const Page = () => (
+  <Translate>
+    {translate =>
+      <h1>{ translate('heading') }</h1>
+      // Instead of pulling translation based on activeLanguage,
+      // specify language using defaultLanguage option
+      <p>{ translate('heading', null, { defaultLanguage: 'fr' }) }</p>
+
+      // override renderHtml option for this translation
+      <p>{ translate('article.code', null, { renderInnerHtml: false }) }</p>
+
+      // pass multiple translations
+      <Article
+        {...translate(['article.title', 'article.author'], { name: 'Ted' }) }
+      />
+    }
+  </Translate>
+);
 ```
 
 The translate function will return single, or multiple translations depending on the arguments passed.
-See [retrieving multiple translations]() for more detail.
+See [retrieving multiple translations](/#retrieving-multiple-translations) for more detail.
 
 #### Parameters:
 
 Parameter | Type | Description
 --------- | ------- | -----------
-id | string | The id for the translation you want to insert.
-data | object | Optional data for variable replacements in [dynamic translations]().
+id | string | Pass a single id or multiple ids for the translation you want to insert.
+data | object | Optional data for variable replacements in [dynamic translations](/#dynamic-translations).
 options | object | See options table below.
 
 #### Options:
@@ -1024,8 +1042,8 @@ options | object | See options table below.
 Name | Type | Description
 --------- | ------- | -----------
 language | string | Optionally pass a language code to force `Translate` to render a specific language.
-renderInnerHtml | boolean | Override initialize [renderInnerHtml]() option for translation.
-onMissingTranslation | function | Override initialize [onMissingTranslation]() option for translation.
+renderInnerHtml | boolean | Override initialize [renderInnerHtml](/#initialize) option for translation.
+onMissingTranslation | function | Override initialize [onMissingTranslation](/#initialize) option for translation.
 
 
 ### languages
@@ -1034,7 +1052,7 @@ onMissingTranslation | function | Override initialize [onMissingTranslation]() o
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const Languages = ({languages}) => (
   <ul>
@@ -1047,7 +1065,7 @@ const Languages = ({languages}) => (
 export default withLocalize(ActiveLanguage);
 ```
 
-An array of languages your translations will support. These are the same languages you passed to [initialize]().
+An array of languages your translations will support. These are the same languages you passed to [initialize](/#initialize).
 
 
 ### activeLanguage
@@ -1056,7 +1074,7 @@ An array of languages your translations will support. These are the same languag
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const ActiveLanguage = ({activeLanguage}) => (
   <ul>
@@ -1081,7 +1099,7 @@ The current active language in localize.
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const DefaultLanguage = ({defaultLanguage}) => (
   <h1>The default language code is: {defaultLanguage}</h1>
@@ -1091,7 +1109,7 @@ export default withLocalize(DefaultLanguage);
 ```
 
 The default language code in localize. The default language was set when you called
-localize [initialize]().
+localize [initialize](/#initialize).
 
 <aside class="notice">
 The default langauge is the first language by default
@@ -1109,7 +1127,7 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 
 ```jsx
 import React from 'react';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize } from 'react-localize';
 
 const LanguageToggle = ({languages, activeLanguage, setActiveLanguage}) => (
   <ul>
@@ -1127,7 +1145,7 @@ export default withLocalize(LanguageToggle);
 ```
 
 By wrapping your component with the `withLocalize` higher-order component all props from
-[LocalizeContext]() will be added as props to your wrapped component.
+[LocalizeContext](/#localizecontext) will be added as props to your wrapped component.
 
 
 
@@ -1150,7 +1168,7 @@ By wrapping your component with the `withLocalize` higher-order component all pr
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const Welcome = props => (
   <div>
@@ -1212,7 +1230,7 @@ The `<Translate />` component is how you access your translations from your comp
 Name | Type | Description
 --------- | ------- | -----------
 id | string | The id for the translation you want to insert.
-data | object | Optional data for variable replacements in [dynamic translations]().
+data | object | Optional data for variable replacements in [dynamic translations](/#dynamic-translations).
 options | object | See options table below.
 
 #### Options:
@@ -1220,8 +1238,8 @@ options | object | See options table below.
 Name | Type | Description
 --------- | ------- | -----------
 language | string | Optionally pass a language code to force `Translate` to render a specific language.
-renderInnerHtml | boolean | Override initialize [renderInnerHtml]() option for translation.
-onMissingTranslation | function | Override initialize [onMissingTranslation]() option for translation.
+renderInnerHtml | boolean | Override initialize [renderInnerHtml](/#initialize) option for translation.
+onMissingTranslation | function | Override initialize [onMissingTranslation](/#initialize) option for translation.
 ignoreTranslateChildren | boolean | If `true` default translations passed as `children` to `Translate` will be ignored, and not automatically added to your translation data.
 
 ### Render props API:
@@ -1230,7 +1248,7 @@ ignoreTranslateChildren | boolean | If `true` default translations passed as `ch
 
 ```jsx
 import React from 'react';
-import { Translate } from 'react-localize-redux';
+import { Translate } from 'react-localize';
 
 const LanguageInfo = () => (
   <Translate>
