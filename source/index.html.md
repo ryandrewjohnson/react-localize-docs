@@ -1,5 +1,5 @@
 ---
-title: React Localize Documentation
+title: React Localize Redux Documentation
 
 language_tabs: # must be one of https://git.io/vQNgJ
 
@@ -20,7 +20,7 @@ npm install react-localize-redux --save
 Once you have finished installation you're ready to get going. The **Getting Started** guide is a place to great start,
 but I also recommend you take some time to familiarize yourself with the rest of the documentation.
 
-Also react localize is built on React's native [Context](https://reactjs.org/docs/context.html), and although it's not necessary, it doesn't hurt
+Also `react-localize-redux` is built on React's native [Context](https://reactjs.org/docs/context.html), and although it's not necessary, it doesn't hurt
 to familirize yourself with it as well.
 
 🎉 **Happy Localizing!** 🎉
@@ -681,9 +681,50 @@ languagesCodes | string[] | An array of languageCodes based on languages passed 
 
 ## What if I want to use Redux?
 
-So your app is already using redux? No problem, as react localize supports redux out of the box.
-All you need to do is pass [LocalizeProvider](/#withlocalize) your redux store, and all your translations will be
-stored in your redux store under the `locale` key.
+> Redux usage:
+
+```jsx
+import React from 'react';
+import { render } from 'react-dom';
+import { createStore, combineReducers } from 'redux';
+import { LocalizeProvider, localizeReducer } from 'react-localize-redux';
+import Main from './Main';
+
+class App extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+
+    const store = createStore(combineReducers({
+      localize: localizeReducer
+    }));
+
+    this.state = {
+      store
+    };
+  }
+
+  getReduxStore() {
+    return createStore(combineReducers({
+      localize: localizeReducer
+    }), composeWithDevTools());
+  }
+
+  render() {
+    return (
+      <LocalizeProvider store={this.state.store}>
+        <Main />
+      </LocalizeProvider>
+    );
+  }
+}
+
+render(<App />, document.getElementById('root'));
+```
+
+So your app is already using redux? No problem, as `react-localize-redux` supports redux out of the box.
+
+* First add the `localize` to your store using `localizeReducer`.
+* Then pass [LocalizeProvider](/#localizeprovider) your redux store.
 
 In addition you can also access the following selectors that are not required, but may be useful for redux app's using [connect](https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options).
 
@@ -779,7 +820,39 @@ This logic was excluded on purpose in order to keep this API focused, and packag
 
 ## Can I use older versions of React?
 
-Coming soon...
+> Use Translate's render props API option.
+
+```jsx
+// use this...
+<Translate>
+  {translate =>
+    <h1>{ translate('heading') }</h1>
+  }
+</Translate>
+
+// not this...
+<Translate id="heading">Hello</Translate>
+```
+
+> Wrap text only translations in an HTML element
+
+```jsx
+const translations = {
+  heading: ['<span>Hello</span>', '<span>Bonjour</span>']
+};
+
+<Translate id="heading" />
+```
+
+If you are unable to upgrade to at least react `v16.0.0` in your app you do have the ability to use an
+older version of react, but should only be used as a last resort. The [Transalte](https://ryandrewjohnson.github.io/react-localize-docs/#translate-2) component
+requires the ability to render [fragments and strings](https://reactjs.org/blog/2017/09/26/react-v16.0.html#new-render-return-types-fragments-and-strings), which isn't available in older versions of react.
+
+The following work arounds may work for you -->
+
+<aside class="notice">
+Use the second option sparingly, as it results in unecessary HTML markup being added to your translations.
+</aside>
 
 
 
