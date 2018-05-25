@@ -293,6 +293,12 @@
                     <a href="#what-if-i-want-to-use-redux" class="toc-h2 toc-link" data-title="what-if-i-want-to-use-redux">What if I want to use Redux?</a>
                   </li>
                   <li>
+                    <a href="#why-do-i-need-to-pass-rendertostaticmarkup-to-initialize" class="toc-h2 toc-link" data-title="why-do-i-need-to-pass-code-rendertostaticmarkup-code-to-initialize">Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</a>
+                  </li>
+                  <li>
+                    <a href="#can-i-use-react-native" class="toc-h2 toc-link" data-title="can-i-use-react-native">Can I use React Native?</a>
+                  </li>
+                  <li>
                     <a href="#what-if-my-translation-data-isn-39-t-in-the-required-format" class="toc-h2 toc-link" data-title="what-if-my-translation-data-isn-t-in-the-required-format">What if my translation data isn't in the required format?</a>
                   </li>
                   <li>
@@ -355,6 +361,23 @@
                           </li>
                       </ul>
                   </li>
+                  <li>
+                    <a href="#redux-helpers" class="toc-h2 toc-link" data-title="redux-helpers">Redux Helpers</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#gettranslate" class="toc-h3 toc-link" data-title="API Reference">getTranslate</a>
+                          </li>
+                          <li>
+                            <a href="#getactivelanguage" class="toc-h3 toc-link" data-title="API Reference">getActiveLanguage</a>
+                          </li>
+                          <li>
+                            <a href="#getlanguages" class="toc-h3 toc-link" data-title="API Reference">getLanguages</a>
+                          </li>
+                          <li>
+                            <a href="#gettranslations" class="toc-h3 toc-link" data-title="API Reference">getTranslations</a>
+                          </li>
+                      </ul>
+                  </li>
               </ul>
           </li>
       </div>
@@ -406,6 +429,7 @@ will have the ability to work with localize.</p>
 is pass the redux <code>store</code> to <code>LocalizeProvider</code>. See <a href="#what-if-i-want-to-use-redux">What if I want to use Redux?</a> for more details.
 </aside>
 <h2 id='initialize-localize'>Initialize localize</h2><pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">renderToStaticMarkup</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-dom/server'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize-redux'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">globalTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/global.json'</span><span class="p">;</span>
 
@@ -419,7 +443,8 @@ is pass the redux <code>store</code> to <code>LocalizeProvider</code>. See <a hr
         <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'English'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'en'</span> <span class="p">},</span>
         <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'French'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'fr'</span> <span class="p">}</span>
       <span class="p">],</span>
-      <span class="na">translation</span><span class="p">:</span> <span class="nx">globalTranslations</span>
+      <span class="na">translation</span><span class="p">:</span> <span class="nx">globalTranslations</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span> <span class="nx">renderToStaticMarkup</span> <span class="p">}</span>
     <span class="p">});</span>
   <span class="p">}</span>
 
@@ -457,12 +482,12 @@ The settings object requires <code>lanuages</code>, while <code>translation</cod
 </tr>
 </tbody></table>
 
-<aside class="notice">
-For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
+<aside class="success">
+<a href="#why-do-i-need-to-pass-rendertostaticmarkup-to-initialize">Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</a>
 </aside>
 
 <aside class="notice">
-Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
 </aside>
 <h2 id='add-translation-data'>Add translation data</h2>
 <blockquote>
@@ -1020,15 +1045,47 @@ a string that will be rendered in the missing translation&#39;s place.</p>
 <p>In addition you can also access the following selectors that are not required, but may be useful for redux app&#39;s using <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">connect</a>.</p>
 
 <ul>
-<li><a href="https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#gettranslatestate">getTranslate</a></li>
-<li><a href="https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#getactivelanguagestate">getActiveLanguage</a></li>
-<li><a href="https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#getlanguagesstate">getLanguages</a></li>
-<li><a href="https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#gettranslationsstate">getTranslations</a></li>
+<li><a href="/#redux-helpers">Redux Helpers</a></li>
 </ul>
+<h2 id='why-do-i-need-to-pass-rendertostaticmarkup-to-initialize'>Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</h2>
+<p>In order for <a href="/#translate-2">Translate</a> to handle default translations that contain HTML <code>react-localize-redux</code> requires react-dom/server&#39;s <a href="https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup">renderToStaticMarkup</a> function. This function used to be included as part of the library, but in doing so
+would cause issues in React Native, as it doesn&#39;t support <code>react-dom</code>. For this reason you now need to pass in a reference to react-dom/server&#39;s <code>renderToStaticMarkup</code> function to <a href="/#initialize">initialize</a> as an option when using <code>react-localize-redux</code> in browser.</p>
+<h2 id='can-i-use-react-native'>Can I use React Native?</h2>
+<blockquote>
+<p>Set <code>renderToStaticMarkup</code> to <code>false</code>:</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize-redux'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">globalTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/global.json'</span><span class="p">;</span>
 
-<aside class="notice">
-<strong>Note:</strong> The links above point to an older version of these docs, as these selectors are no longer required, but could still be useful for redux users.
-</aside>
+<span class="kr">class</span> <span class="nx">Main</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+      <span class="na">languages</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'English'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'en'</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'French'</span><span class="p">,</span> <span class="na">code</span><span class="p">:</span> <span class="s1">'fr'</span> <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="na">translation</span><span class="p">:</span> <span class="nx">globalTranslations</span><span class="p">,</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">renderToStaticMarkup</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// render Main layout component</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
+</code></pre>
+<p>You can use React Native, but will need to set <code>renderToStaticMarkup</code> to <code>false</code> when passing <a href="/#initialize">initialize</a> options.</p>
+
+<p>One caveat is that React Native is unable to support passing default translations that contain HTML to <a href="/#translate-2">Translate</a>. This is due to React Native not supporting
+react-dom/server&#39;s <a href="https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup">renderToStaticMarkup</a>.</p>
 <h2 id='what-if-my-translation-data-isn-39-t-in-the-required-format'>What if my translation data isn&#39;t in the required format?</h2>
 <p>If you don&#39;t have control over the translation data for your application you can use the <a href="/#addtranslation">translationTransform</a> option.
 See <a href="/#custom-translation-format">Custom translation format</a> guide for more details.</p>
@@ -1193,6 +1250,7 @@ be used like any other context created by React.
 <p>Usage:</p>
 </blockquote>
 <pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">renderToStaticMarkup</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-dom/server'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">withLocalize</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'react-localize-redux'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">globalTranslations</span> <span class="nx">from</span> <span class="s1">'./translations/global.json'</span><span class="p">;</span>
 
@@ -1208,6 +1266,7 @@ be used like any other context created by React.
       <span class="p">],</span>
       <span class="na">translation</span><span class="p">:</span> <span class="nx">globalTranslations</span><span class="p">,</span>
       <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">renderToStaticMarkup</span><span class="p">,</span>
         <span class="na">renderInnerHtml</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="na">defaultLanguage</span><span class="p">:</span> <span class="s1">'fr'</span>
       <span class="p">}</span>
@@ -1257,6 +1316,12 @@ also provide initial translation data, as well as some additional options.</p>
 </tr>
 </thead><tbody>
 <tr>
+<td>renderToStaticMarkup</td>
+<td>function</td>
+<td>boolean</td>
+<td>If using react in browser pass in react-dom/server&#39;s <a href="https://reactjs.org/docs/react-dom-server.html">renderToStaticMarkup</a>, and <code>false</code> if using React Native.</td>
+</tr>
+<tr>
 <td>renderInnerHtml</td>
 <td>boolean</td>
 <td>false</td>
@@ -1276,8 +1341,12 @@ also provide initial translation data, as well as some additional options.</p>
 </tr>
 </tbody></table>
 
+<aside class="success">
+  <a href="#why-do-i-need-to-pass-rendertostaticmarkup-to-initialize">Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</a>
+</aside>
+
 <aside class="notice">
-Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+  Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
 </aside>
 <h3 id='addtranslation'>addTranslation</h3>
 <blockquote>
@@ -1739,7 +1808,7 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 <tr>
 <td>translate</td>
 <td>function</td>
-<td>See translate function below.</td>
+<td>See <a href="[translate](/#translate)">translate function</a>.</td>
 </tr>
 <tr>
 <td>activeLanguage</td>
@@ -1752,6 +1821,47 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 <td>An array of languages your translations will support.</td>
 </tr>
 </tbody></table>
+<h2 id='redux-helpers'>Redux Helpers</h2>
+<p>The following selectors are available, and may be useful for redux app&#39;s using <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">connect</a>.</p>
+<h3 id='gettranslate'>getTranslate</h3><pre class="highlight jsx tab-jsx"><code><span class="kr">const</span> <span class="nx">Greeting</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">translate</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">translate</span><span class="p">(</span><span class="s1">'greeting'</span><span class="p">)</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="kr">const</span> <span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">translate</span><span class="p">:</span> <span class="nx">getTranslate</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">localize</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">)(</span><span class="nx">Greeting</span><span class="p">);</span>
+</code></pre>
+<p>A selector that takes the <code>localize</code> slice of your state and returns the <a href="/#translate">translate</a> function.</p>
+<h3 id='getactivelanguage'>getActiveLanguage</h3><pre class="highlight jsx tab-jsx"><code><span class="kr">const</span> <span class="nx">Greeting</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">currentLanguage</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>My language is: <span class="si">{</span> <span class="nx">currentLanguage</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="kr">const</span> <span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">currentLanguage</span><span class="p">:</span> <span class="nx">getActiveLanguage</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">localize</span><span class="p">).</span><span class="nx">code</span>
+<span class="p">});</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">)(</span><span class="nx">Greeting</span><span class="p">);</span>
+</code></pre>
+<p>A selector that takes the <code>localize</code> slice of your state and returns the active language.</p>
+<h3 id='getlanguages'>getLanguages</h3><pre class="highlight jsx tab-jsx"><code><span class="kr">const</span> <span class="nx">LanguageSelector</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">languages</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="si">{</span> <span class="nx">languages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">language</span> <span class="o">=&gt;</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="si">{</span> <span class="nx">language</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">)</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">({</span>
+  <span class="na">languages</span><span class="p">:</span> <span class="nx">getLanguages</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">localize</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">,</span> <span class="p">{</span> <span class="nx">setActiveLanguage</span> <span class="p">})(</span><span class="nx">Greeting</span><span class="p">);</span>
+</code></pre>
+<p>A selector that takes the <code>localize</code> slice of your state and returns the languages array.</p>
+<h3 id='gettranslations'>getTranslations</h3>
+<p>A selector that takes the <code>localize</code> slice of your state and returns all your translation data.</p>
+
+<p><br/>
+<br/>
+<br/></p>
 
       </div>
       <div class="dark-box">
