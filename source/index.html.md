@@ -68,6 +68,7 @@ is pass the redux <code>store</code> to <code>LocalizeProvider</code>. See <a hr
 
 ```jsx
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
 import globalTranslations from './translations/global.json';
 
@@ -81,7 +82,8 @@ class Main extends React.Component {
         { name: 'English', code: 'en' },
         { name: 'French', code: 'fr' }
       ],
-      translation: globalTranslations
+      translation: globalTranslations,
+      options: { renderToStaticMarkup }
     });
   }
 
@@ -102,12 +104,12 @@ languages | array | An array of languages your translations will support.
 translation | object | Translation data in [all languages](/#all-langauges-format) or [single language](/#single-language-format) format.
 options | object | See [initialize options](/#initialize).
 
-<aside class="notice">
-For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
+<aside class="success">
+<a href="#why-do-i-need-to-pass-rendertostaticmarkup-to-initialize">Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</a>
 </aside>
 
 <aside class="notice">
-Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+For your component to have access to the <code>initialize</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
 </aside>
 
 
@@ -728,14 +730,53 @@ So your app is already using redux? No problem, as `react-localize-redux` suppor
 
 In addition you can also access the following selectors that are not required, but may be useful for redux app's using [connect](https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options).
 
-* [getTranslate](https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#gettranslatestate)
-* [getActiveLanguage](https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#getactivelanguagestate)
-* [getLanguages](https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#getlanguagesstate)
-* [getTranslations](https://ryandrewjohnson.github.io/react-localize-redux/api/selectors/#gettranslationsstate)
+* [Redux Helpers](/#redux-helpers)
 
-<aside class="notice">
-<strong>Note:</strong> The links above point to an older version of these docs, as these selectors are no longer required, but could still be useful for redux users.
-</aside>
+
+## Why do I need to pass `renderToStaticMarkup` to initialize?
+
+In order for [Translate](/#translate-2) to handle default translations that contain HTML `react-localize-redux` requires react-dom/server's [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup) function. This function used to be included as part of the library, but in doing so
+would cause issues in React Native, as it doesn't support `react-dom`. For this reason you now need to pass in a reference to react-dom/server's `renderToStaticMarkup` function to [initialize](/#initialize) as an option when using `react-localize-redux` in browser.
+
+
+## Can I use React Native?
+
+> Set `renderToStaticMarkup` to `false`:
+
+```jsx
+import React from 'react';
+import { withLocalize } from 'react-localize-redux';
+import globalTranslations from './translations/global.json';
+
+class Main extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.props.initialize({
+      languages: [
+        { name: 'English', code: 'en' },
+        { name: 'French', code: 'fr' }
+      ],
+      translation: globalTranslations,
+      options: {
+        renderToStaticMarkup: false
+      }
+    });
+  }
+
+  render() {
+    // render Main layout component
+  }
+}
+
+export default withLocalize(Main);
+```
+
+You can use React Native, but will need to set `renderToStaticMarkup` to `false` when passing [initialize](/#initialize) options.
+
+One caveat is that React Native is unable to support passing default translations that contain HTML to [Translate](/#translate-2). This is due to React Native not supporting
+react-dom/server's [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup).
 
 
 ## What if my translation data isn't in the required format?
@@ -930,6 +971,7 @@ be used like any other context created by React.
 
 ```jsx
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize } from 'react-localize-redux';
 import globalTranslations from './translations/global.json';
 
@@ -945,6 +987,7 @@ class Main extends React.Component {
       ],
       translation: globalTranslations,
       options: {
+        renderToStaticMarkup,
         renderInnerHtml: true,
         defaultLanguage: 'fr'
       }
@@ -974,12 +1017,18 @@ options | object | See options table below.
 
 Name | Type | Default | Description
 --------- | ------- | ----------- | -----------
+renderToStaticMarkup | function|boolean | If using react in browser pass in react-dom/server's [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html), and `false` if using React Native.
 renderInnerHtml | boolean | false | Controls whether HTML in your translations will be rendered or returned as a plain string.
 onMissingTranslation | function | returns default missing message | See [Handle missing translations](/#handle-missing-translations) for details.
 defaultLanguage | string | languages[0] | The language code for the language you'd like to set as the defualt.
 
+
+<aside class="success">
+  <a href="#why-do-i-need-to-pass-rendertostaticmarkup-to-initialize">Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</a>
+</aside>
+
 <aside class="notice">
-Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
+  Ensure you <code>initialize</code> localize before attempting to render any components that have translations in them.
 </aside>
 
 
@@ -1377,6 +1426,74 @@ You can also pass Translate a function as it's child that returns the elements y
 
 Property | Type | Description
 --------- | ------- | -----------
-translate | function | See translate function below.
+translate | function | See [translate function]([translate](/#translate)).
 activeLanguage | object | The active language object.
 languages | array | An array of languages your translations will support.
+
+
+
+
+
+## Redux Helpers
+
+The following selectors are available, and may be useful for redux app's using [connect](https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options).
+
+
+### getTranslate
+
+```jsx
+const Greeting = ({ translate }) => <h1>{ translate('greeting') }</h1>
+
+const mapStateToProps = state => ({
+  translate: getTranslate(state.localize)
+});
+
+export default connect(mapStateToProps)(Greeting);
+```
+
+A selector that takes the `localize` slice of your state and returns the [translate](/#translate) function.
+
+### getActiveLanguage
+
+```jsx
+const Greeting = ({ currentLanguage }) => <h1>My language is: { currentLanguage }</h1>
+
+const mapStateToProps = state => ({
+  currentLanguage: getActiveLanguage(state.localize).code
+});
+
+export default connect(mapStateToProps)(Greeting);
+```
+
+A selector that takes the `localize` slice of your state and returns the active language.
+
+
+
+### getLanguages
+
+```jsx
+const LanguageSelector = ({ languages }) => (
+  <ul>
+    { languages.map(language => (
+      <li>{ language.name }</li>
+    )}
+  </ul>
+);
+
+const mapStateToProps = state => ({
+  languages: getLanguages(state.localize)
+});
+
+export default connect(mapStateToProps, { setActiveLanguage })(Greeting);
+```
+
+A selector that takes the `localize` slice of your state and returns the languages array.
+
+
+### getTranslations
+
+A selector that takes the `localize` slice of your state and returns all your translation data.
+
+<br/>
+<br/>
+<br/>
