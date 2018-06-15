@@ -927,10 +927,12 @@ also provide initial translation data, as well as some additional options.
 
 | Name                 | Type     | Default                         | Description                                                                                                                                                     |
 | -------------------- | -------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| renderToStaticMarkup | function | boolean                         | If using react in browser pass in react-dom/server's [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html), and `false` if using React Native. |
-| renderInnerHtml      | boolean  | false                           | Controls whether HTML in your translations will be rendered or returned as a plain string.                                                                      |
-| onMissingTranslation | function | returns default missing message | See [Handle missing translations](/#handle-missing-translations) for details.                                                                                   |
-| defaultLanguage      | string   | languages[0]                    | The language code for the language you'd like to set as the default.                                                                                            |
+| renderToStaticMarkup    | function | boolean                         | If using react in browser pass in react-dom/server's [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html), and `false` if using React Native. |
+| renderInnerHtml         | boolean  | false                           | Controls whether HTML in your translations will be rendered or returned as a plain string.                                                                      |
+| onMissingTranslation    | function | returns default missing message | See [Handle missing translations](/#handle-missing-translations) for details.                                                                                   |
+| defaultLanguage         | string   | languages[0]                    | The language code for the language you'd like to set as the default.                                                                                            |
+| ignoreTranslateChildren | boolean  | false                           | If `true` default translations passed as `children` to `Translate` will be ignored, and not automatically added to your translation data. Note that you can override this behaviour on a per-component instance by passing `options.ignoreTranslateChildren` as a prop to [Translate](/#translate-2).
+             |
 
 <aside class="success">
   <a href="#why-do-i-need-to-pass-rendertostaticmarkup-to-initialize">Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</a>
