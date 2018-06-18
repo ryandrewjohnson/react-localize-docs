@@ -451,7 +451,7 @@ is pass the redux <code>store</code> to <code>LocalizeProvider</code>. See <a hr
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
 </code></pre>
-<p>Before accessing any trnaslations in your app you will need to <a href="/#initialize">initialize</a> localize with your settings.
+<p>Before accessing any trnaslations in your app you will need to <a href="#initialize">initialize</a> localize with your settings.
 The settings object requires <code>lanuages</code>, while <code>translation</code>, and <code>options</code> are optional.</p>
 
 <table><thead>
@@ -514,14 +514,14 @@ For your component to have access to the <code>initialize</code> prop you'll nee
 
 <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">addTranslationForLanguage</span><span class="p">(</span><span class="nx">frenchMovieTranslations</span><span class="p">,</span> <span class="s2">"fr"</span><span class="p">);</span>
 </code></pre>
-<p>Translation data comes in two different flavours - the <a href="/#all-languages-format">all languages</a> and <a href="/#single-language-format">single language</a> format.</p>
+<p>Translation data comes in two different flavours - the <a href="#all-languages-format">all languages</a> and <a href="#single-language-format">single language</a> format.</p>
 
 <ul>
-<li>Use <a href="/#addtranslation">addTranslation</a> method to add data in <code>all languges</code> format.</li>
-<li>Use <a href="/#addtranslationforlanguage">addTranslationForLanguage</a> method to add data in <code>single languge</code> format.</li>
+<li>Use <a href="#addtranslation">addTranslation</a> method to add data in <code>all languges</code> format.</li>
+<li>Use <a href="#addtranslationforlanguage">addTranslationForLanguage</a> method to add data in <code>single languge</code> format.</li>
 </ul>
 
-<p>As soon as you add the translation data to localize it can be rendered in your components using <a href="/#translate-2">Translate</a>.</p>
+<p>As soon as you add the translation data to localize it can be rendered in your components using <a href="#translate-2">Translate</a>.</p>
 
 <aside class="notice">
 For your component to have access to the <code>addTranslation</code> and <code>addTranslationForLanguage</code> props you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
@@ -536,7 +536,7 @@ For your component to have access to the <code>addTranslation</code> and <code>a
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Once you&#39;ve added your translation data you&#39;ll need a way to get it into your components. That is where the <a href="/#translate-2">Translate</a> component comes in, and it can be used in a variety of ways. The <code>id</code> prop passed to <code>Translate</code> should match the id of the translation data you want to insert</p>
+<p>Once you&#39;ve added your translation data you&#39;ll need a way to get it into your components. That is where the <a href="#translate-2">Translate</a> component comes in, and it can be used in a variety of ways. The <code>id</code> prop passed to <code>Translate</code> should match the id of the translation data you want to insert</p>
 <h3 id='translate-with-default-translations'>Translate with default translations:</h3>
 <blockquote>
 <p>With default language:</p>
@@ -573,7 +573,7 @@ be added to your translation data for that <code>id</code>&#39; and default lang
   <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
 <span class="p">);</span>
 </code></pre>
-<p>You can also pass Translate a function as it&#39;s child that returns the elements you want to render. This function is commonly referred to as a <a href="https://reactjs.org/docs/render-props.html">render prop function</a>, and is passed a single object with props <a href="/#translate-2">Translate</a>, <a href="/#activelanguage">activeLanguage</a>, and <a href="/#languages">languages</a>.</p>
+<p>You can also pass Translate a function as it&#39;s child that returns the elements you want to render. This function is commonly referred to as a <a href="https://reactjs.org/docs/render-props.html">render prop function</a>, and is passed a single object with props <a href="#translate-2">Translate</a>, <a href="#activelanguage">activeLanguage</a>, and <a href="#languages">languages</a>.</p>
 <h2 id='change-active-language'>Change active language</h2>
 <blockquote>
 <p>Language selector using <code>setActiveLanguage</code>:</p>
@@ -595,7 +595,7 @@ be added to your translation data for that <code>id</code>&#39; and default lang
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">LanguageToggle</span><span class="p">);</span>
 </code></pre>
-<p>Use the <a href="/#setactivelanguage">setActiveLanguage</a> method to change localize&#39;s active language.</p>
+<p>Use the <a href="#setactivelanguage">setActiveLanguage</a> method to change localize&#39;s active language.</p>
 
 <aside class="notice">
 For your component to have access to the <code>setActiveLanguage</code> prop you'll need to use the <code><a href="#withlocalize">withLocalize</a></code> higher-order component.
@@ -624,7 +624,7 @@ your data it will need to be in one of the following formats.</p>
 
 <ul>
 <li>Includes a translation for each language your app supports.</li>
-<li>The order of the translation strings in the array matters! The order <strong>MUST</strong> follow the order of the languages array passed to <a href="/#initialize">initialize</a>.</li>
+<li>The order of the translation strings in the array matters! The order <strong>MUST</strong> follow the order of the languages array passed to <a href="#initialize">initialize</a>.</li>
 </ul>
 
 <aside class="notice">
@@ -698,7 +698,7 @@ The <a href="#addtranslationforlanguage"><code>addTranslationForLanguage</code><
 </code></pre>
 <p>Both types of translation data formats support nesting to help with organization of translations, and avoid naming collisions with translation ids.</p>
 <h2 id='custom-format'>Custom format</h2>
-<p>See <a href="/#custom-translation-format">Custom translation format</a> for details.</p>
+<p>See <a href="#custom-translation-format">Custom translation format</a> for details.</p>
 <h1 id='guides'>Guides</h1><h2 id='include-inline-default-translations'>Include inline default translations</h2>
 <blockquote>
 <p>Pass default language translations to <code>Translate</code></p>
@@ -734,14 +734,14 @@ The <a href="#addtranslationforlanguage"><code>addTranslationForLanguage</code><
   <span class="nx">congrats</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Congratulations'</span><span class="p">,</span> <span class="s1">'Toutes nos félicitations'</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
-<p>With <a href="/#translate-2">Translate</a> you can include an inline translation for the default language by passing
+<p>With <a href="#translate-2">Translate</a> you can include an inline translation for the default language by passing
 as <code>children</code> to the component.</p>
 
 <p>When you pass an inline translation to <code>Translate</code> it will be added to your translation data under the corresponding <code>id</code>
 for the default language. If the default language&#39;s translation for that <code>id</code> already exists it will be overriden
 with the inline translation.</p>
 
-<p>If you don&#39;t want existing translation data overriden you can set <code>Translate</code>&#39;s <a href="/#translate-2">ignoreTranslateChildren</a> option to <code>true</code>.
+<p>If you don&#39;t want existing translation data overriden you can set <code>Translate</code>&#39;s <a href="#translate-2">ignoreTranslateChildren</a> option to <code>true</code>.
 When set to <code>true</code> the existing translation data will always be rendered, and the inline translation will be ignored.</p>
 <h2 id='dynamic-translations'>Dynamic translations</h2>
 <blockquote>
@@ -777,7 +777,7 @@ When set to <code>true</code> the existing translation data will always be rende
 <span class="p">);</span>
 </code></pre>
 <p>You can add dynamic content to your translatins by inserting placeholders with the following format <code>${placeholder}</code>.
-Then using the <a href="/#translate-2">Translate</a> component you will be able to pass in data that will inserted for each corresponding placeholder.</p>
+Then using the <a href="#translate-2">Translate</a> component you will be able to pass in data that will inserted for each corresponding placeholder.</p>
 <h2 id='html-translations'>HTML translations</h2>
 <blockquote>
 <p>Translation with HTML</p>
@@ -808,11 +808,11 @@ Then using the <a href="/#translate-2">Translate</a> component you will be able 
   <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
 <span class="p">);</span>
 </code></pre>
-<p>As long as you&#39;ve set the <a href="/#initialize">initialize</a> option <a href="/#initialize">renderInnerHtml</a> to <code>true</code> any HTML markup in your translations
-will be rendered when using <a href="/#translate-2">Translate</a>.</p>
+<p>As long as you&#39;ve set the <a href="#initialize">initialize</a> option <a href="#initialize">renderInnerHtml</a> to <code>true</code> any HTML markup in your translations
+will be rendered when using <a href="#translate-2">Translate</a>.</p>
 
 <p>In addition to setting <code>renderInnerHtml</code> globally you can also override it for a specific translation&#39;s by passing an
-<a href="/#translate-2">options</a> prop to <code>Translate</code>.</p>
+<a href="#translate-2">options</a> prop to <code>Translate</code>.</p>
 <h2 id='handle-missing-translations'>Handle missing translations</h2>
 <blockquote>
 <p>Return translation for default language in place of missing translation</p>
@@ -857,7 +857,7 @@ will be rendered when using <a href="/#translate-2">Translate</a>.</p>
 
 <p><strong>Adding custom missing translation logic</strong></p>
 
-<p>This can be overidden at a global level by providing the <a href="/#initialize">onMissingTranslation</a> option to <a href="/#initialize">initialize</a>.
+<p>This can be overidden at a global level by providing the <a href="#initialize">onMissingTranslation</a> option to <a href="#initialize">initialize</a>.
 You&#39;ll need to pass <code>onMissingTranslation</code> a function for it&#39;s value, and that function should return
 a string that will be rendered in the missing translation&#39;s place.</p>
 
@@ -918,7 +918,7 @@ a string that will be rendered in the missing translation&#39;s place.</p>
   <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
 <span class="p">);</span>
 </code></pre>
-<p>To retrieve multiple translations using <a href="/#translate-2">Translate</a> pass an array of translation ids instead of a single id. This will return an object with translated strings mapped to translation ids.</p>
+<p>To retrieve multiple translations using <a href="#translate-2">Translate</a> pass an array of translation ids instead of a single id. This will return an object with translated strings mapped to translation ids.</p>
 <h2 id='custom-translation-format'>Custom translation format</h2>
 <blockquote>
 <p>Unsupported translation format</p>
@@ -967,10 +967,10 @@ a string that will be rendered in the missing translation&#39;s place.</p>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">CustomStuff</span><span class="p">);</span>
 </code></pre>
-<p>Do you have legacy translation data that doesn&#39;t fit one of localize&#39;s <a href="/#formatting-translations">supported formats</a>? In this case you can try <a href="/#addtranslation">addTranslation</a>&#39;s
-<a href="/#addtranslation">translationTransform</a> option, which can be passed when adding translations.</p>
+<p>Do you have legacy translation data that doesn&#39;t fit one of localize&#39;s <a href="#formatting-translations">supported formats</a>? In this case you can try <a href="#addtranslation">addTranslation</a>&#39;s
+<a href="#addtranslation">translationTransform</a> option, which can be passed when adding translations.</p>
 
-<p>The <code>translationTransform</code> option takes a function that is responsible for transforming your custom translation data into localize&#39;s supported <a href="/#all-languages-format">all languages format</a>.</p>
+<p>The <code>translationTransform</code> option takes a function that is responsible for transforming your custom translation data into localize&#39;s supported <a href="#all-languages-format">all languages format</a>.</p>
 
 <p>The translation function will be passed the below arguments, and should return data in <code>all languages format</code>:</p>
 
@@ -1041,17 +1041,17 @@ a string that will be rendered in the missing translation&#39;s place.</p>
 
 <ul>
 <li>First add the <code>localize</code> to your store using <code>localizeReducer</code>.</li>
-<li>Then pass <a href="/#localizeprovider">LocalizeProvider</a> your redux store.</li>
+<li>Then pass <a href="#localizeprovider">LocalizeProvider</a> your redux store.</li>
 </ul>
 
 <p>In addition you can also access the following selectors that are not required, but may be useful for redux app&#39;s using <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">connect</a>.</p>
 
 <ul>
-<li><a href="/#redux-helpers">Redux Helpers</a></li>
+<li><a href="#redux-helpers">Redux Helpers</a></li>
 </ul>
 <h2 id='why-do-i-need-to-pass-rendertostaticmarkup-to-initialize'>Why do I need to pass <code>renderToStaticMarkup</code> to initialize?</h2>
-<p>In order for <a href="/#translate-2">Translate</a> to handle default translations that contain HTML <code>react-localize-redux</code> requires react-dom/server&#39;s <a href="https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup">renderToStaticMarkup</a> function. This function used to be included as part of the library, but in doing so
-would cause issues in React Native, as it doesn&#39;t support <code>react-dom</code>. For this reason you now need to pass in a reference to react-dom/server&#39;s <code>renderToStaticMarkup</code> function to <a href="/#initialize">initialize</a> as an option when using <code>react-localize-redux</code> in browser.</p>
+<p>In order for <a href="#translate-2">Translate</a> to handle default translations that contain HTML <code>react-localize-redux</code> requires react-dom/server&#39;s <a href="https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup">renderToStaticMarkup</a> function. This function used to be included as part of the library, but in doing so
+would cause issues in React Native, as it doesn&#39;t support <code>react-dom</code>. For this reason you now need to pass in a reference to react-dom/server&#39;s <code>renderToStaticMarkup</code> function to <a href="#initialize">initialize</a> as an option when using <code>react-localize-redux</code> in browser.</p>
 <h2 id='can-i-use-react-native'>Can I use React Native?</h2>
 <blockquote>
 <p>Set <code>renderToStaticMarkup</code> to <code>false</code>:</p>
@@ -1083,13 +1083,13 @@ would cause issues in React Native, as it doesn&#39;t support <code>react-dom</c
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
 </code></pre>
-<p>You can use React Native, but will need to set <code>renderToStaticMarkup</code> to <code>false</code> when passing <a href="/#initialize">initialize</a> options.</p>
+<p>You can use React Native, but will need to set <code>renderToStaticMarkup</code> to <code>false</code> when passing <a href="#initialize">initialize</a> options.</p>
 
-<p>One caveat is that React Native is unable to support passing default translations that contain HTML to <a href="/#translate-2">Translate</a>. This is due to React Native not supporting
+<p>One caveat is that React Native is unable to support passing default translations that contain HTML to <a href="#translate-2">Translate</a>. This is due to React Native not supporting
 react-dom/server&#39;s <a href="https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup">renderToStaticMarkup</a>.</p>
 <h2 id='what-if-my-translation-data-isn-39-t-in-the-required-format'>What if my translation data isn&#39;t in the required format?</h2>
-<p>If you don&#39;t have control over the translation data for your application you can use the <a href="/#addtranslation">translationTransform</a> option.
-See <a href="/#custom-translation-format">Custom translation format</a> guide for more details.</p>
+<p>If you don&#39;t have control over the translation data for your application you can use the <a href="#addtranslation">translationTransform</a> option.
+See <a href="#custom-translation-format">Custom translation format</a> guide for more details.</p>
 <h2 id='how-do-i-persist-active-language-after-refresh'>How do I persist active language after refresh?</h2>
 <blockquote>
 <p>Persist active language to local storage:</p>
@@ -1151,7 +1151,7 @@ The following is one approach leveraging local storage to store and retrieve the
 <p>This logic was excluded on purpose in order to keep this API focused, and package size small. If you do require localization based formatting you do have the choice of using a third-party library that speciializes in formatting e.g(<a href="https://momentjs.com/">Moment</a> for dates). Or you can even implement this logic yourself...</p>
 <h2 id='how-does-react-localize-redux-differ-from-react-intl'>How does react-localize-redux differ from react-intl?</h2>
 <ul>
-<li><p><a href="https://github.com/yahoo/react-intl">react-intl</a> is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with <code>react-localize-redux</code> you are responsible for those things - see <a href="/#how-do-i-handle-currency-date-and-other-localization-transformations">How do I handle currency, date, and other localization transformations?</a></p></li>
+<li><p><a href="https://github.com/yahoo/react-intl">react-intl</a> is larger in size/complexity, and for good reason as it handles many things related to localization. e.g. Pluralization, currency. Where as with <code>react-localize-redux</code> you are responsible for those things - see <a href="#how-do-i-handle-currency-date-and-other-localization-transformations">How do I handle currency, date, and other localization transformations?</a></p></li>
 <li><p><code>react-intl</code> doesn&#39;t work with Redux out of the box, and needs an additional library <a href="https://github.com/ratson/react-intl-redux">react-intl-redux</a> to add support.</p></li>
 <li><p>For further discussion on this topic see <a href="https://github.com/ryandrewjohnson/react-localize-redux/issues/21">original github issue</a>.</p></li>
 </ul>
@@ -1209,7 +1209,7 @@ The following is one approach leveraging local storage to store and retrieve the
   <span class="p">&lt;/</span><span class="nc">LocalizeContext</span><span class="p">.</span><span class="nc">Consumer</span><span class="p">&gt;</span>
 <span class="p">);</span>
 </code></pre>
-<p>It is recommended that you <strong>don&#39;t use</strong> <code>LocalizeContext</code> directly, but instead use the <a href="/#withlocalize">withLocalize</a> higher-order
+<p>It is recommended that you <strong>don&#39;t use</strong> <code>LocalizeContext</code> directly, but instead use the <a href="#withlocalize">withLocalize</a> higher-order
 component to access <code>LocalizeContext</code>&#39;s props in your component.</p>
 
 <aside class="notice">
@@ -1250,7 +1250,7 @@ be used like any other context created by React.
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
 </code></pre>
-<p>You will need to <a href="/#initialize">initialize</a> localize with the supported languages in your translations. Optionally you can
+<p>You will need to <a href="#initialize">initialize</a> localize with the supported languages in your translations. Optionally you can
 also provide initial translation data, as well as some additional options.</p>
 <h4 id='properties-2'>Properties:</h4>
 <table><thead>
@@ -1268,7 +1268,7 @@ also provide initial translation data, as well as some additional options.</p>
 <tr>
 <td>translation</td>
 <td>object</td>
-<td>Translation data in <a href="/#all-languages-format">all languages</a> or <a href="/#single-language-format">single language</a> format.</td>
+<td>Translation data in <a href="#all-languages-format">all languages</a> or <a href="#single-language-format">single language</a> format.</td>
 </tr>
 <tr>
 <td>options</td>
@@ -1301,7 +1301,7 @@ also provide initial translation data, as well as some additional options.</p>
 <td>onMissingTranslation</td>
 <td>function</td>
 <td>returns default missing message</td>
-<td>See <a href="/#handle-missing-translations">Handle missing translations</a> for details.</td>
+<td>See <a href="#handle-missing-translations">Handle missing translations</a> for details.</td>
 </tr>
 <tr>
 <td>defaultLanguage</td>
@@ -1313,7 +1313,7 @@ also provide initial translation data, as well as some additional options.</p>
 <td>ignoreTranslateChildren</td>
 <td>boolean</td>
 <td>false</td>
-<td>If <code>true</code> default translations passed as <code>children</code> to <code>Translate</code> will be ignored, and not automatically added to your translation data. Note that you can override this behaviour on a per-component instance by passing <code>options.ignoreTranslateChildren</code> as a prop to <a href="/#translate-2">Translate</a>.</td>
+<td>If <code>true</code> default translations passed as <code>children</code> to <code>Translate</code> will be ignored, and not automatically added to your translation data. Note that you can override this behaviour on a per-component instance by passing <code>options.ignoreTranslateChildren</code> as a prop to <a href="#translate-2">Translate</a>.</td>
 </tr>
 <tr>
 <td></td>
@@ -1355,8 +1355,8 @@ also provide initial translation data, as well as some additional options.</p>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Movies</span><span class="p">);</span>
 </code></pre>
-<p>The <code>addTranslation</code> method is used to add translations data in the <a href="/#all-languages-format">all languages format</a> to localize.
-Once you&#39;ve translation data has been added you will be able to access it using <a href="/#translate-2">Translate</a>.</p>
+<p>The <code>addTranslation</code> method is used to add translations data in the <a href="#all-languages-format">all languages format</a> to localize.
+Once you&#39;ve translation data has been added you will be able to access it using <a href="#translate-2">Translate</a>.</p>
 <h4 id='parameters'>Parameters:</h4>
 <table><thead>
 <tr>
@@ -1368,7 +1368,7 @@ Once you&#39;ve translation data has been added you will be able to access it us
 <tr>
 <td>data</td>
 <td>object</td>
-<td>Translation data in <a href="/#all-languages-format">all languages format</a>.</td>
+<td>Translation data in <a href="#all-languages-format">all languages format</a>.</td>
 </tr>
 <tr>
 <td>options</td>
@@ -1387,7 +1387,7 @@ Once you&#39;ve translation data has been added you will be able to access it us
 <tr>
 <td>translationTransform</td>
 <td>function</td>
-<td>A transform function for dealing with custom translation data. See <a href="/#custom-translation-format">Custom translation format</a>.</td>
+<td>A transform function for dealing with custom translation data. See <a href="#custom-translation-format">Custom translation format</a>.</td>
 </tr>
 </tbody></table>
 <h3 id='addtranslationforlanguage'>addTranslationForLanguage</h3>
@@ -1415,8 +1415,8 @@ Once you&#39;ve translation data has been added you will be able to access it us
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Movies</span><span class="p">);</span>
 </code></pre>
-<p>The <code>addTranslationForLanguage</code> method is used to add translations data in the <a href="/#single-language-format">single language format</a> to localize.
-Once you&#39;ve translation data has been added you will be able to access it using <a href="/#translate-2">Translate</a>.</p>
+<p>The <code>addTranslationForLanguage</code> method is used to add translations data in the <a href="#single-language-format">single language format</a> to localize.
+Once you&#39;ve translation data has been added you will be able to access it using <a href="#translate-2">Translate</a>.</p>
 <h4 id='parameters-2'>Parameters:</h4>
 <table><thead>
 <tr>
@@ -1428,7 +1428,7 @@ Once you&#39;ve translation data has been added you will be able to access it us
 <tr>
 <td>data</td>
 <td>object</td>
-<td>Translation data in <a href="/#single-language-format">single language format</a>.</td>
+<td>Translation data in <a href="#single-language-format">single language format</a>.</td>
 </tr>
 <tr>
 <td>language</td>
@@ -1499,7 +1499,7 @@ Once you&#39;ve translation data has been added you will be able to access it us
 <span class="p">);</span>
 </code></pre>
 <p>The translate function will return single, or multiple translations depending on the arguments passed.
-See <a href="/#retrieving-multiple-translations">retrieving multiple translations</a> for more detail.</p>
+See <a href="#retrieving-multiple-translations">retrieving multiple translations</a> for more detail.</p>
 <h4 id='parameters-4'>Parameters:</h4>
 <table><thead>
 <tr>
@@ -1516,7 +1516,7 @@ See <a href="/#retrieving-multiple-translations">retrieving multiple translation
 <tr>
 <td>data</td>
 <td>object</td>
-<td>Optional data for variable replacements in <a href="/#dynamic-translations">dynamic translations</a>.</td>
+<td>Optional data for variable replacements in <a href="#dynamic-translations">dynamic translations</a>.</td>
 </tr>
 <tr>
 <td>options</td>
@@ -1540,12 +1540,12 @@ See <a href="/#retrieving-multiple-translations">retrieving multiple translation
 <tr>
 <td>renderInnerHtml</td>
 <td>boolean</td>
-<td>Override initialize <a href="/#initialize">renderInnerHtml</a> option for translation.</td>
+<td>Override initialize <a href="#initialize">renderInnerHtml</a> option for translation.</td>
 </tr>
 <tr>
 <td>onMissingTranslation</td>
 <td>function</td>
-<td>Override initialize <a href="/#initialize">onMissingTranslation</a> option for translation.</td>
+<td>Override initialize <a href="#initialize">onMissingTranslation</a> option for translation.</td>
 </tr>
 </tbody></table>
 <h3 id='languages'>languages</h3>
@@ -1567,7 +1567,7 @@ See <a href="/#retrieving-multiple-translations">retrieving multiple translation
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">ActiveLanguage</span><span class="p">);</span>
 </code></pre>
-<p>An array of languages your translations will support. These are the same languages you passed to <a href="/#initialize">initialize</a>.</p>
+<p>An array of languages your translations will support. These are the same languages you passed to <a href="#initialize">initialize</a>.</p>
 <h3 id='activelanguage'>activeLanguage</h3>
 <blockquote>
 <p>Usage:</p>
@@ -1601,7 +1601,7 @@ See <a href="/#retrieving-multiple-translations">retrieving multiple translation
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">DefaultLanguage</span><span class="p">);</span>
 </code></pre>
 <p>The default language code in localize. The default language was set when you called
-localize <a href="/#initialize">initialize</a>.</p>
+localize <a href="#initialize">initialize</a>.</p>
 
 <aside class="notice">
 The default language is the first language by default
@@ -1629,7 +1629,7 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">LanguageToggle</span><span class="p">);</span>
 </code></pre>
 <p>By wrapping your component with the <code>withLocalize</code> higher-order component all props from
-<a href="/#localizecontext">LocalizeContext</a> will be added as props to your wrapped component.</p>
+<a href="#localizecontext">LocalizeContext</a> will be added as props to your wrapped component.</p>
 <h2 id='translate-2'>Translate</h2>
 <blockquote>
 <p>Given following translations</p>
@@ -1716,7 +1716,7 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 <tr>
 <td>data</td>
 <td>object</td>
-<td>Optional data for variable replacements in <a href="/#dynamic-translations">dynamic translations</a>.</td>
+<td>Optional data for variable replacements in <a href="#dynamic-translations">dynamic translations</a>.</td>
 </tr>
 <tr>
 <td>options</td>
@@ -1740,12 +1740,12 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 <tr>
 <td>renderInnerHtml</td>
 <td>boolean</td>
-<td>Override initialize <a href="/#initialize">renderInnerHtml</a> option for translation.</td>
+<td>Override initialize <a href="#initialize">renderInnerHtml</a> option for translation.</td>
 </tr>
 <tr>
 <td>onMissingTranslation</td>
 <td>function</td>
-<td>Override initialize <a href="/#initialize">onMissingTranslation</a> option for translation.</td>
+<td>Override initialize <a href="#initialize">onMissingTranslation</a> option for translation.</td>
 </tr>
 <tr>
 <td>ignoreTranslateChildren</td>
@@ -1794,7 +1794,7 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 <tr>
 <td>translate</td>
 <td>function</td>
-<td>See <a href="[translate](/#translate)">translate function</a>.</td>
+<td>See <a href="[translate](#translate)">translate function</a>.</td>
 </tr>
 <tr>
 <td>activeLanguage</td>
@@ -1817,7 +1817,7 @@ unless your set a <code>defaultLanguage</code> option with <code>initialize</cod
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">)(</span><span class="nx">Greeting</span><span class="p">);</span>
 </code></pre>
-<p>A selector that takes the <code>localize</code> slice of your state and returns the <a href="/#translate">translate</a> function.</p>
+<p>A selector that takes the <code>localize</code> slice of your state and returns the <a href="#translate">translate</a> function.</p>
 <h3 id='getactivelanguage'>getActiveLanguage</h3><pre class="highlight jsx tab-jsx"><code><span class="kr">const</span> <span class="nx">Greeting</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">currentLanguage</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
   <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>My language is: <span class="si">{</span><span class="nx">currentLanguage</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 <span class="p">);</span>
