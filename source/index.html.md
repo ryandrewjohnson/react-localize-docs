@@ -476,6 +476,42 @@ will be rendered when using [Translate](#translate-2).
 In addition to setting `renderInnerHtml` globally you can also override it for a specific translation's by passing an
 [options](#translate-2) prop to `Translate`.
 
+## React translations
+
+> Translations with placeholders
+
+```javascript
+{
+  link: "Click ${ nav }!",
+  here: "here"
+}
+```
+
+> Using data attribute
+
+```jsx
+import React from "react";
+import { Translate } from "react-localize-redux";
+import { Link } from "react-router-dom";
+
+const LinkWithText = () => (
+  <Link to="/">
+    <Translate id="here" />
+  </Link>
+);
+
+const MyLink = props => (
+  <Translate id="link" data={{ nav: <LinkWithText /> }}>
+    {"Click ${ nav }"}
+  </Translate>
+);
+```
+
+You can also pass React components as dynamic content. The example demonstrates how to insert a `Link` from `react-router` into a translated string.
+
+**Note**: This feature is not currently supported for React Native. It is also not compatible with translations that have
+HTML. i.e. You cannot pass a React component to a string like `"<strong>Hello</strong> ${ name }"`
+
 ## Handle missing translations
 
 > Return translation for default language in place of missing translation
