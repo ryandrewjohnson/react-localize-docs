@@ -85,7 +85,7 @@ class Main extends React.Component {
 export default withLocalize(Main);
 ```
 
-Before accessing any trnaslations in your app you will need to [initialize](#initialize) localize with your settings.
+Before accessing any translations in your app you will need to [initialize](#initialize) localize with your settings.
 The settings object requires `lanuages`, while `translation`, and `options` are optional.
 
 | Property    | Type   | Description                                                                                                        |
@@ -174,7 +174,7 @@ const Movies = props => (
 );
 ```
 
-You can include your default language's tranlslation with `Translate` by passing it as children to the component. The translation will automatically
+You can include your default language's translation with `Translate` by passing it as children to the component. The translation will automatically
 be added to your translation data for that `id`' and default language.
 
 ### Translate with self-closing tag
@@ -434,7 +434,7 @@ const Today = props => (
 );
 ```
 
-You can add dynamic content to your translatins by inserting placeholders with the following format `${placeholder}`.
+You can add dynamic content to your translations by inserting placeholders with the following format `${placeholder}`.
 Then using the [Translate](#translate-2) component you will be able to pass in data that will inserted for each corresponding placeholder.
 
 ## HTML translations
