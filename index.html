@@ -276,6 +276,9 @@
                     <a href="#html-translations" class="toc-h2 toc-link" data-title="html-translations">HTML translations</a>
                   </li>
                   <li>
+                    <a href="#react-translations" class="toc-h2 toc-link" data-title="react-translations">React translations</a>
+                  </li>
+                  <li>
                     <a href="#handle-missing-translations" class="toc-h2 toc-link" data-title="handle-missing-translations">Handle missing translations</a>
                   </li>
                   <li>
@@ -451,7 +454,7 @@ is pass the redux <code>store</code> to <code>LocalizeProvider</code>. See <a hr
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">withLocalize</span><span class="p">(</span><span class="nx">Main</span><span class="p">);</span>
 </code></pre>
-<p>Before accessing any trnaslations in your app you will need to <a href="#initialize">initialize</a> localize with your settings.
+<p>Before accessing any translations in your app you will need to <a href="#initialize">initialize</a> localize with your settings.
 The settings object requires <code>lanuages</code>, while <code>translation</code>, and <code>options</code> are optional.</p>
 
 <table><thead>
@@ -550,7 +553,7 @@ For your component to have access to the <code>addTranslation</code> and <code>a
   <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 <span class="p">);</span>
 </code></pre>
-<p>You can include your default language&#39;s tranlslation with <code>Translate</code> by passing it as children to the component. The translation will automatically
+<p>You can include your default language&#39;s translation with <code>Translate</code> by passing it as children to the component. The translation will automatically
 be added to your translation data for that <code>id</code>&#39; and default language.</p>
 <h3 id='translate-with-self-closing-tag'>Translate with self-closing tag</h3>
 <blockquote>
@@ -776,7 +779,7 @@ When set to <code>true</code> the existing translation data will always be rende
   <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
 <span class="p">);</span>
 </code></pre>
-<p>You can add dynamic content to your translatins by inserting placeholders with the following format <code>${placeholder}</code>.
+<p>You can add dynamic content to your translations by inserting placeholders with the following format <code>${placeholder}</code>.
 Then using the <a href="#translate-2">Translate</a> component you will be able to pass in data that will inserted for each corresponding placeholder.</p>
 <h2 id='html-translations'>HTML translations</h2>
 <blockquote>
@@ -813,6 +816,38 @@ will be rendered when using <a href="#translate-2">Translate</a>.</p>
 
 <p>In addition to setting <code>renderInnerHtml</code> globally you can also override it for a specific translation&#39;s by passing an
 <a href="#translate-2">options</a> prop to <code>Translate</code>.</p>
+<h2 id='react-translations'>React translations</h2>
+<blockquote>
+<p>Translations with placeholders</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">link</span><span class="p">:</span> <span class="s2">"Click ${ nav }!"</span><span class="p">,</span>
+  <span class="nx">here</span><span class="p">:</span> <span class="s2">"here"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Using data attribute</p>
+</blockquote>
+<pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Translate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react-localize-redux"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Link</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react-router-dom"</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">LinkWithText</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Link</span> <span class="na">to=</span><span class="s2">"/"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"here"</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">Link</span><span class="p">&gt;</span>
+<span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">MyLink</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Translate</span> <span class="na">id=</span><span class="s2">"link"</span> <span class="na">data=</span><span class="si">{</span><span class="p">{</span> <span class="na">nav</span><span class="p">:</span> <span class="p">&lt;</span><span class="nc">LinkWithText</span> <span class="p">/&gt;</span> <span class="p">}</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="err">"</span><span class="nx">Click</span> <span class="nx">$</span><span class="p">{</span> <span class="nx">nav</span> <span class="p">}</span><span class="err">"</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nc">Translate</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre>
+<p>You can also pass React components as dynamic content. The example demonstrates how to insert a <code>Link</code> from <code>react-router</code> into a translated string.</p>
+
+<p><strong>Note</strong>: This feature is not currently supported for React Native. It is also not compatible with translations that have
+HTML. i.e. You cannot pass a React component to a string like <code>&quot;&lt;strong&gt;Hello&lt;/strong&gt; ${ name }&quot;</code></p>
 <h2 id='handle-missing-translations'>Handle missing translations</h2>
 <blockquote>
 <p>Return translation for default language in place of missing translation</p>
