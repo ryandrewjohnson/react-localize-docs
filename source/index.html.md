@@ -4,7 +4,7 @@ title: React Localize Redux Documentation
 language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
-  - <a href='https://github.com/ryandrewjohnson/react-localize-redux-redux'>Project on Github</a>
+  - <a href='https://github.com/ryandrewjohnson/react-localize-redux'>Project on Github</a>
 
 search: true
 ---
