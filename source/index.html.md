@@ -730,6 +730,54 @@ In addition you can also access the following selectors that are not required, b
 
 * [Redux Helpers](#redux-helpers)
 
+## Can I use a ImmutableJS store?
+
+> ImmutableJS store:
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { createStore } from "redux";
+import { LocalizeProvider, localizeReducer } from "react-localize-redux";
+import Main from "./Main";
+
+import { combineReducers } from 'redux-immutable';
+
+class App extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+
+    const store = createStore(
+      combineReducers({
+        localize: localizeReducer
+      })
+    );
+
+    this.state = {
+      store
+    };
+  }
+
+  render() {
+    return (
+      <LocalizeProvider
+        store={this.state.store} // this is a Map
+        getState={state => state.get('localize')} // Map-compatible method
+      >
+        <Main />
+      </LocalizeProvider>
+    );
+  }
+}
+
+render(<App />, document.getElementById("root"));
+```
+
+Yes, usage with ImmutableJS is supported, you just need to explicitly define how to access `state.localize`.
+
+* Pass [LocalizeProvider](#localizeprovider) a function compatible with the data structure containing your store
+* In this example our store is a `Map`, so we pass a function that calls `state.get()`.
+
 ## Why do I need to pass `renderToStaticMarkup` to initialize?
 
 In order for [Translate](#translate-2) to handle default translations that contain HTML `react-localize-redux` requires react-dom/server's [renderToStaticMarkup](https://reactjs.org/docs/react-dom-server.html#rendertostaticmarkup) function. This function used to be included as part of the library, but in doing so
