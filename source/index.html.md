@@ -682,53 +682,47 @@ The translation function will be passed the below arguments, and should return d
 import React from "react";
 import { render } from "react-dom";
 import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
 import { LocalizeProvider, localizeReducer } from "react-localize-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 import Main from "./Main";
 
-class App extends React.Component<any, any> {
-  constructor(props) {
-    super(props);
+const rootReducer = combineReducers({
+  localize: localizeReducer,
+  // other reducers
+});
 
-    const store = createStore(
-      combineReducers({
-        localize: localizeReducer
-      })
-    );
+const store = createStore(
+  rootReducer, // create redux store using root reducer
+  initialState = {}, // initial state of the application
+  composeWithDevTools(
+    applyMiddleware(
+      // router and other middlewares
+    )
+  )
+);
 
-    this.state = {
-      store
-    };
-  }
-
-  getReduxStore() {
-    return createStore(
-      combineReducers({
-        localize: localizeReducer
-      }),
-      composeWithDevTools()
-    );
-  }
-
-  render() {
-    return (
-      <LocalizeProvider store={this.state.store}>
-        <Main />
-      </LocalizeProvider>
-    );
-  }
-}
+const App = props => (
+  <Provider store={store}>
+    <LocalizeProvider store={store}>
+      <Router>
+        <Route path="/" component={Main} />
+      </Router>
+    </LocalizeProvider>
+  </Provider>
+);
 
 render(<App />, document.getElementById("root"));
 ```
 
-So your app is already using redux? No problem, as `react-localize-redux` supports redux out of the box.
+No problem as `react-localize-redux` supports redux out of the box.
 
-* First add the `localize` to your store using `localizeReducer`.
-* Then pass [LocalizeProvider](#localizeprovider) your redux store.
+* First add `localizeReducer` as `localize` to your application's root reducer.
+* Then wrap your application with [LocalizeProvider](#localizeprovider) and pass it your redux store.
+* You can now wrap your components with the [withLocalize](#withlocalize) HOC to use [LocalizeContext](#localizecontext).
 
-In addition you can also access the following selectors that are not required, but may be useful for redux app's using [connect](https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options).
-
-* [Redux Helpers](#redux-helpers)
+In addition, `react-localize-redux` provides some [Redux Helpers](#redux-helpers) that are not required but can be useful. You can access them by connecting your components to redux store using [connect](https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options).
 
 ## Can I use a ImmutableJS store?
 
