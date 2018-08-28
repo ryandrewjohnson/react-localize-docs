@@ -1037,56 +1037,48 @@ a string that will be rendered in the missing translation&#39;s place.</p>
 <pre class="highlight jsx tab-jsx"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">render</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react-dom"</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">combineReducers</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"redux"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react-redux"</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">LocalizeProvider</span><span class="p">,</span> <span class="nx">localizeReducer</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react-localize-redux"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">composeWithDevTools</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"redux-devtools-extension"</span><span class="p">;</span>
+
 <span class="kr">import</span> <span class="nx">Main</span> <span class="nx">from</span> <span class="s2">"./Main"</span><span class="p">;</span>
 
-<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">any</span><span class="p">,</span> <span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">rootReducer</span> <span class="o">=</span> <span class="nx">combineReducers</span><span class="p">({</span>
+  <span class="na">localize</span><span class="p">:</span> <span class="nx">localizeReducer</span><span class="p">,</span>
+  <span class="c1">// other reducers</span>
+<span class="p">});</span>
 
-    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>
-      <span class="nx">combineReducers</span><span class="p">({</span>
-        <span class="na">localize</span><span class="p">:</span> <span class="nx">localizeReducer</span>
-      <span class="p">})</span>
-    <span class="p">);</span>
+<span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>
+  <span class="nx">rootReducer</span><span class="p">,</span> <span class="c1">// create redux store using root reducer</span>
+  <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{},</span> <span class="c1">// initial state of the application</span>
+  <span class="nx">composeWithDevTools</span><span class="p">(</span>
+    <span class="nx">applyMiddleware</span><span class="p">(</span>
+      <span class="c1">// router and other middlewares</span>
+    <span class="p">)</span>
+  <span class="p">)</span>
+<span class="p">);</span>
 
-    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="nx">store</span>
-    <span class="p">};</span>
-  <span class="p">}</span>
-
-  <span class="nx">getReduxStore</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">createStore</span><span class="p">(</span>
-      <span class="nx">combineReducers</span><span class="p">({</span>
-        <span class="na">localize</span><span class="p">:</span> <span class="nx">localizeReducer</span>
-      <span class="p">}),</span>
-      <span class="nx">composeWithDevTools</span><span class="p">()</span>
-    <span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span>
-      <span class="p">&lt;</span><span class="nc">LocalizeProvider</span> <span class="na">store=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nc">Main</span> <span class="p">/&gt;</span>
-      <span class="p">&lt;/</span><span class="nc">LocalizeProvider</span><span class="p">&gt;</span>
-    <span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">Provider</span> <span class="na">store=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">LocalizeProvider</span> <span class="na">store=</span><span class="si">{</span><span class="nx">store</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Router</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nc">Route</span> <span class="na">path=</span><span class="s2">"/"</span> <span class="na">component=</span><span class="si">{</span><span class="nx">Main</span><span class="si">}</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;/</span><span class="nc">Router</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nc">LocalizeProvider</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nc">Provider</span><span class="p">&gt;</span>
+<span class="p">);</span>
 
 <span class="nx">render</span><span class="p">(&lt;</span><span class="nc">App</span> <span class="p">/&gt;,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"root"</span><span class="p">));</span>
 </code></pre>
-<p>So your app is already using redux? No problem, as <code>react-localize-redux</code> supports redux out of the box.</p>
+<p>No problem as <code>react-localize-redux</code> supports redux out of the box.</p>
 
 <ul>
-<li>First add the <code>localize</code> to your store using <code>localizeReducer</code>.</li>
-<li>Then pass <a href="#localizeprovider">LocalizeProvider</a> your redux store.</li>
+<li>First add <code>localizeReducer</code> as <code>localize</code> to your application&#39;s root reducer.</li>
+<li>Then wrap your application with <a href="#localizeprovider">LocalizeProvider</a> and pass it your redux store.</li>
+<li>You can now wrap your components with the <a href="#withlocalize">withLocalize</a> HOC to use <a href="#localizecontext">LocalizeContext</a>.</li>
 </ul>
 
-<p>In addition you can also access the following selectors that are not required, but may be useful for redux app&#39;s using <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">connect</a>.</p>
-
-<ul>
-<li><a href="#redux-helpers">Redux Helpers</a></li>
-</ul>
+<p>In addition, <code>react-localize-redux</code> provides some <a href="#redux-helpers">Redux Helpers</a> that are not required but can be useful. You can access them by connecting your components to redux store using <a href="https://github.com/reduxjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">connect</a>.</p>
 <h2 id='can-i-use-a-immutablejs-store'>Can I use a ImmutableJS store?</h2>
 <blockquote>
 <p>ImmutableJS store:</p>
