@@ -1045,7 +1045,7 @@ class Greetings extends React.Component {
   }
 }
 
-export default withLocalize(Movies);
+export default withLocalize(Greetings);
 ```
 
 The `addTranslation` method is used to add translations data in the [all languages format](#all-languages-format) to localize.
@@ -1089,7 +1089,7 @@ class Greetings extends React.Component {
   }
 }
 
-export default withLocalize(Movies);
+export default withLocalize(Greetings);
 ```
 
 The `addTranslationForLanguage` method is used to add translations data in the [single language format](#single-language-format) to localize.
