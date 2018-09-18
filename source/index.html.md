@@ -55,6 +55,10 @@ will have the ability to work with localize.
 is pass the redux <code>store</code> to <code>LocalizeProvider</code>. See <a href="#what-if-i-want-to-use-redux">What if I want to use Redux?</a> for more details.
 </aside>
 
+<aside class="success">
+<strong>Using server side rendering?</strong> — If you plan on rendering your React app server side you will need to pass your initialize payload as a prop to <code>LocalizeProvider</code>. See <a href="#working-with-server-side-rendering">Working with Server Side Rendering</a> for more details.
+</aside>
+
 ## Initialize localize
 
 ```jsx
@@ -348,6 +352,65 @@ Both types of translation data formats support nesting to help with organization
 See [Custom translation format](#custom-translation-format) for details.
 
 # Guides
+
+## Working with Server Side Rendering
+
+> On the server
+
+```jsx
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+
+const html = ReactDOMServer.renderToString(
+  <LocalizeProvider initialize={{
+    languages: [
+      { name: "English", code: "en" },
+      { name: "French", code: "fr" }
+    ],
+    translation: {
+      hello: ['hello', 'alo']
+    },
+    options: {
+      defaultLanguage: "en",
+      renderToStaticMarkup: ReactDOMServer.renderToStaticMarkup
+    }
+  }}>
+    <LocalizedApp />
+  </LocalizeProvider>
+);
+```
+
+> On the client
+
+```jsx
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+
+ReactDOM.hydrate((
+  <LocalizeProvider initialize={{
+    languages: [
+      { name: "English", code: "en" },
+      { name: "French", code: "fr" }
+    ],
+    translation: {
+      hello: ['hello', 'alo']
+    },
+    options: {
+      defaultLanguage: "en",
+      renderToStaticMarkup: ReactDOMServer.renderToStaticMarkup
+    }
+  }}>
+    <LocalizedApp />
+  </LocalizeProvider>
+);
+```
+
+In order for server side rendering to work you will need to pass your [initialize](#initialize) payload to [LocalizeProvider](#localizeprovider) as a prop when rendering from the server. In addition you also need to ensure that you pass the same payload to `LocalizeProvider` as a prop when using [hydrate]() from the client.
+
+Instead of repeating the initialize payload on both the server, and client like demonstrated you could use a workflow that is well known for [Redux and SSR](https://redux.js.org/recipes/serverrendering) where the initialState is stored in the window object, and then used to initialize state on the client.
+
+
+
 
 ## Include inline default translations
 
@@ -923,6 +986,7 @@ By wrapping your application with `<LocalizeProvider />` all component's in the 
 
 | Property | Type        | Description                                        |
 | -------- | ----------- | -------------------------------------------------- |
+| initialize | Object | Pass in your [initialize](#initialize) payload. Required when using [server side rendering](#working-with-server-side-rendering) |
 | store    | Redux store | Optionally pass your store if your app uses Redux. |
 
 <aside class="notice">
